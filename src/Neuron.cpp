@@ -2,7 +2,7 @@
 
 Neuron::Neuron()
 {
-	mValue = 0;
+    mValue = 0;
 }
 
 Neuron::~Neuron()

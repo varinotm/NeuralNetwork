@@ -6,15 +6,15 @@
 
 StartLayer* LayerFactory::CreateStartLayer()
 {
-	return new StartLayer();
+    return new StartLayer();
 }
 
 HiddenLayer* LayerFactory::CreateHiddenLayer()
 {
-	return new HiddenLayer();
+    return new HiddenLayer();
 }
 
 FinalLayer* LayerFactory::CreateFinalLayer()
 {
-	return new FinalLayer();
+    return new FinalLayer();
 }

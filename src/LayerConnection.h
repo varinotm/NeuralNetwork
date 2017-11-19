@@ -9,21 +9,21 @@ class NeuronConnection;
 class LayerConnection
 {
 public:
-	/// Constructor
-	LayerConnection(ILayer* inputLayer, ILayer* outputLayer);
+    /// Constructor
+    LayerConnection(ILayer* inputLayer, ILayer* outputLayer);
 
-	/// Destructor
-	~LayerConnection();
+    /// Destructor
+    ~LayerConnection();
 
 private:
-	/// The input layer
-	ILayer* mInputLayer;
+    /// The input layer
+    ILayer* mInputLayer;
 
-	/// The output layer
-	ILayer* mOutputLayer;
+    /// The output layer
+    ILayer* mOutputLayer;
 
-	/// All the neuron connections from 2 layers.
-	/// For each neurons of the input layer, there will be a connection with all
-	/// the neurons of the output layer.
-	std::vector<std::vector<NeuronConnection*>> mNeuronConnectionMatrix;
+    /// All the neuron connections from 2 layers.
+    /// For each neurons of the input layer, there will be a connection with all
+    /// the neurons of the output layer.
+    std::vector<std::vector<NeuronConnection*>> mNeuronConnectionMatrix;
 };

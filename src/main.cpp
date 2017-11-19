@@ -4,13 +4,13 @@
 
 int main()
 {
-	std::cout << "This is my first neural network library!" << std::endl;
+    std::cout << "This is my first neural network library!" << std::endl;
 
-	NeuralNetwork* neuralNetwork; 
+    NeuralNetwork* neuralNetwork; 
 
-	neuralNetwork = new NeuralNetwork();
-	delete neuralNetwork;
+    neuralNetwork = new NeuralNetwork();
+    delete neuralNetwork;
 
-	std::cin.ignore();
+    std::cin.ignore();
 
 }

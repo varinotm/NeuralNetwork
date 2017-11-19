@@ -2,8 +2,8 @@
 
 NeuronConnection::NeuronConnection(Neuron* inputNeuron, Neuron* outputNeuron)
 {
-	mInputNeuron = inputNeuron;
-	mOutputNeuron = outputNeuron;
+    mInputNeuron = inputNeuron;
+    mOutputNeuron = outputNeuron;
 
-	mWeight = 0;
+    mWeight = 0;
 }

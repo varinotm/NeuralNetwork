@@ -8,18 +8,18 @@ class FinalLayer;
 class HiddenLayer : public ILayer
 {
 public:
-	/// Constructor
-	HiddenLayer();
+    /// Constructor
+    HiddenLayer();
 
-	/// Destructor
-	~HiddenLayer() = default;
+    /// Destructor
+    ~HiddenLayer() = default;
 
-	/// Set the output Layer. Will overwrite any previous output layer
-	//@{
-	void SetOutputLayer(HiddenLayer* hiddenLayer);
-	void SetOutputLayer(FinalLayer* finalLayer);
-	//@}
+    /// Set the output Layer. Will overwrite any previous output layer
+    //@{
+    void SetOutputLayer(HiddenLayer* hiddenLayer);
+    void SetOutputLayer(FinalLayer* finalLayer);
+    //@}
 
 private:
-	ILayer* mLayer;
+    ILayer* mLayer;
 };

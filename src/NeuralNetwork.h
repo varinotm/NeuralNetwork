@@ -9,16 +9,16 @@ class LayerConnection;
 class NeuralNetwork
 {
 public:
-	NeuralNetwork();
+    NeuralNetwork();
 
-	~NeuralNetwork();
+    ~NeuralNetwork();
 
 private:
-	LayerFactory mLayerFactory;
+    LayerFactory mLayerFactory;
 
-	StartLayer* mStartLayer;
-	std::vector<HiddenLayer*> mHiddenLayerList;
-	FinalLayer* mFinalLayer;
+    StartLayer* mStartLayer;
+    std::vector<HiddenLayer*> mHiddenLayerList;
+    FinalLayer* mFinalLayer;
 
-	std::vector<LayerConnection*> mLayerConnectionList;
+    std::vector<LayerConnection*> mLayerConnectionList;
 };

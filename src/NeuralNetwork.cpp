@@ -8,42 +8,42 @@
 
 NeuralNetwork::NeuralNetwork()
 {
-	// Test : 1 start layer, 2 hidden layers, 1 output layer
+    // Test : 1 start layer, 2 hidden layers, 1 output layer
 
-	// Initialize layers
-	mStartLayer = mLayerFactory.CreateStartLayer();
+    // Initialize layers
+    mStartLayer = mLayerFactory.CreateStartLayer();
 
-	mHiddenLayerList.push_back(mLayerFactory.CreateHiddenLayer());
-	mHiddenLayerList.push_back(mLayerFactory.CreateHiddenLayer());
+    mHiddenLayerList.push_back(mLayerFactory.CreateHiddenLayer());
+    mHiddenLayerList.push_back(mLayerFactory.CreateHiddenLayer());
 
-	mFinalLayer = mLayerFactory.CreateFinalLayer();
+    mFinalLayer = mLayerFactory.CreateFinalLayer();
 
-	// Create connections
-	mLayerConnectionList.push_back(new LayerConnection(mStartLayer, mHiddenLayerList[0]));
-	mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[0], mHiddenLayerList[1]));
-	mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[1], mFinalLayer));
+    // Create connections
+    mLayerConnectionList.push_back(new LayerConnection(mStartLayer, mHiddenLayerList[0]));
+    mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[0], mHiddenLayerList[1]));
+    mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[1], mFinalLayer));
 }
 
 NeuralNetwork::~NeuralNetwork()
 {
-	for (auto layerConnection : mLayerConnectionList)
-	{
-		delete layerConnection;
-		layerConnection = nullptr;
-	}
-	mLayerConnectionList.clear();
+    for (auto layerConnection : mLayerConnectionList)
+    {
+        delete layerConnection;
+        layerConnection = nullptr;
+    }
+    mLayerConnectionList.clear();
 
-	delete mStartLayer;
-	mStartLayer = nullptr;
-	
-	for (auto hiddenLayer : mHiddenLayerList)
-	{
-		delete hiddenLayer;
-		hiddenLayer = nullptr;
-	}
-	mHiddenLayerList.clear();
+    delete mStartLayer;
+    mStartLayer = nullptr;
+    
+    for (auto hiddenLayer : mHiddenLayerList)
+    {
+        delete hiddenLayer;
+        hiddenLayer = nullptr;
+    }
+    mHiddenLayerList.clear();
 
-	delete mFinalLayer;
-	mFinalLayer = nullptr;
+    delete mFinalLayer;
+    mFinalLayer = nullptr;
 }
 

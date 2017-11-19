@@ -9,18 +9,18 @@ class FinalLayer;
 class StartLayer : public ILayer
 {
 public:
-	/// Constructor
-	StartLayer();
+    /// Constructor
+    StartLayer();
 
-	/// Destructor
-	~StartLayer() = default;
+    /// Destructor
+    ~StartLayer() = default;
 
-	/// Set the output Layer. Will overwrite any previous output layer
-	//@{
-	void SetOutputLayer(HiddenLayer* hiddenLayer);
-	void SetOutputLayer(FinalLayer* finalLayer);
-	//@}
+    /// Set the output Layer. Will overwrite any previous output layer
+    //@{
+    void SetOutputLayer(HiddenLayer* hiddenLayer);
+    void SetOutputLayer(FinalLayer* finalLayer);
+    //@}
 
 private:
-	ILayer* mLayer;
+    ILayer* mLayer;
 };

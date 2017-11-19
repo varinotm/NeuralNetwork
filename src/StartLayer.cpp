@@ -10,10 +10,10 @@ StartLayer::StartLayer()
 
 void StartLayer::SetOutputLayer(HiddenLayer* hiddenLayer)
 {
-	mLayer = hiddenLayer;
+    mLayer = hiddenLayer;
 }
 
 void StartLayer::SetOutputLayer(FinalLayer* finalLayer)
 {
-	mLayer = finalLayer;
+    mLayer = finalLayer;
 }

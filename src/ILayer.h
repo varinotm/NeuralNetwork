@@ -8,15 +8,15 @@ class Neuron;
 class ILayer
 {
 public:
-	/// Constructor
-	ILayer(int nbNeuron = 10);
+    /// Constructor
+    ILayer(int nbNeuron = 10);
 
-	/// Destructor
-	~ILayer();
+    /// Destructor
+    ~ILayer();
 
-	/// Get the list of neuron of the layer
-	std::vector<Neuron*> GetNeuronList();
+    /// Get the list of neuron of the layer
+    std::vector<Neuron*> GetNeuronList();
 
 private:
-	std::vector<Neuron*> mNeuronList;
+    std::vector<Neuron*> mNeuronList;
 };

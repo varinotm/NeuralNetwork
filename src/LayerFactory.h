@@ -8,13 +8,13 @@ class FinalLayer;
 class LayerFactory
 {
 public:
-	/// Constructor
-	LayerFactory() = default;
+    /// Constructor
+    LayerFactory() = default;
 
-	/// Destructor
-	~LayerFactory() = default;
+    /// Destructor
+    ~LayerFactory() = default;
 
-	StartLayer* CreateStartLayer();
-	HiddenLayer* CreateHiddenLayer();
-	FinalLayer* CreateFinalLayer();
+    StartLayer* CreateStartLayer();
+    HiddenLayer* CreateHiddenLayer();
+    FinalLayer* CreateFinalLayer();
 };

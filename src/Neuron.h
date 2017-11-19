@@ -5,15 +5,15 @@
 class Neuron
 {
 public:
-	/// Constructor
-	Neuron();
+    /// Constructor
+    Neuron();
 
-	/// Destructor
-	~Neuron();
+    /// Destructor
+    ~Neuron();
 
 private:
-	/// Value going from 0 to 1
-	double mValue;
+    /// Value going from 0 to 1
+    double mValue;
 
 
 };
