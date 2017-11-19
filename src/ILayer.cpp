@@ -1,9 +1,12 @@
 #include <ILayer.h>
 #include <Neuron.h>
 
-ILayer::ILayer()
+ILayer::ILayer(int nbNeuron)
 {
-
+	for (int i = 0; i < nbNeuron; i++)
+	{
+		mNeuronList.push_back(new Neuron());
+	}
 }
 
 ILayer::~ILayer()
@@ -13,4 +16,10 @@ ILayer::~ILayer()
 		delete neuron;
 		neuron = nullptr;
 	}
+	mNeuronList.clear();
+}
+
+std::vector<Neuron*> ILayer::GetNeuronList()
+{
+	return mNeuronList;
 }

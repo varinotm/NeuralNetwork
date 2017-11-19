@@ -4,6 +4,8 @@
 #include <HiddenLayer.h>
 #include <FinalLayer.h>
 
+#include <LayerConnection.h>
+
 NeuralNetwork::NeuralNetwork()
 {
 	// Test : 1 start layer, 2 hidden layers, 1 output layer
@@ -17,14 +19,20 @@ NeuralNetwork::NeuralNetwork()
 	mFinalLayer = mLayerFactory.CreateFinalLayer();
 
 	// Create connections
-	mStartLayer->SetOutputLayer(mHiddenLayerList[0]);
-
-	mHiddenLayerList[0]->SetOutputLayer(mHiddenLayerList[1]);
-	mHiddenLayerList[1]->SetOutputLayer(mFinalLayer);
+	mLayerConnectionList.push_back(new LayerConnection(mStartLayer, mHiddenLayerList[0]));
+	mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[0], mHiddenLayerList[1]));
+	mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[1], mFinalLayer));
 }
 
 NeuralNetwork::~NeuralNetwork()
 {
+	for (auto layerConnection : mLayerConnectionList)
+	{
+		delete layerConnection;
+		layerConnection = nullptr;
+	}
+	mLayerConnectionList.clear();
+
 	delete mStartLayer;
 	mStartLayer = nullptr;
 	
@@ -33,6 +41,7 @@ NeuralNetwork::~NeuralNetwork()
 		delete hiddenLayer;
 		hiddenLayer = nullptr;
 	}
+	mHiddenLayerList.clear();
 
 	delete mFinalLayer;
 	mFinalLayer = nullptr;

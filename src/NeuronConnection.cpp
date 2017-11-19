@@ -1,9 +1,9 @@
 #include <NeuronConnection.h>
 
-NeuronConnection::NeuronConnection(Neuron* neuronInput, Neuron* neuronOutput)
+NeuronConnection::NeuronConnection(Neuron* inputNeuron, Neuron* outputNeuron)
 {
-	mNeuronInput = neuronInput;
-	mNeuronOutput = neuronOutput;
+	mInputNeuron = inputNeuron;
+	mOutputNeuron = outputNeuron;
 
 	mWeight = 0;
 }

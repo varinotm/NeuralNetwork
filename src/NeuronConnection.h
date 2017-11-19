@@ -2,12 +2,12 @@
 
 class Neuron;
 
-/// Class that connects 2 layers
+/// Class that connects 2 neurons
 class NeuronConnection
 {
 public:
 	/// Constructor
-	NeuronConnection(Neuron* neuronInput, Neuron* neuronOutput);
+	NeuronConnection(Neuron* inputNeuron, Neuron* outputNeuron);
 
 	/// Destructor
 	~NeuronConnection() = default;
@@ -17,9 +17,9 @@ private:
 	double mWeight;
 
 	/// The input neuron
-	Neuron* mNeuronInput;
+	Neuron* mInputNeuron;
 
 	/// The output neuron
-	Neuron* mNeuronOutput;
+	Neuron* mOutputNeuron;
 
 };

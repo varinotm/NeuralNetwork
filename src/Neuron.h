@@ -13,6 +13,7 @@ public:
 
 private:
 	/// Value going from 0 to 1
-	double value;
+	double mValue;
+
 
 };

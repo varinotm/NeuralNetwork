@@ -4,6 +4,8 @@
 
 #include <vector>
 
+class LayerConnection;
+
 class NeuralNetwork
 {
 public:
@@ -17,4 +19,6 @@ private:
 	StartLayer* mStartLayer;
 	std::vector<HiddenLayer*> mHiddenLayerList;
 	FinalLayer* mFinalLayer;
+
+	std::vector<LayerConnection*> mLayerConnectionList;
 };

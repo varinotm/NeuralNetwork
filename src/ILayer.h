@@ -9,10 +9,13 @@ class ILayer
 {
 public:
 	/// Constructor
-	ILayer();
+	ILayer(int nbNeuron = 10);
 
 	/// Destructor
 	~ILayer();
+
+	/// Get the list of neuron of the layer
+	std::vector<Neuron*> GetNeuronList();
 
 private:
 	std::vector<Neuron*> mNeuronList;
