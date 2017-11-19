@@ -1,8 +1,20 @@
 #pragma once
 
+#include <LayerFactory.h>
+
+#include <vector>
+
 class NeuralNetwork
 {
-	NeuralNetwork() = default;
+public:
+	NeuralNetwork();
 
-	~NeuralNetwork() = default;
+	~NeuralNetwork();
+
+private:
+	LayerFactory mLayerFactory;
+
+	StartLayer* mStartLayer;
+	std::vector<HiddenLayer*> mHiddenLayerList;
+	FinalLayer* mFinalLayer;
 };
