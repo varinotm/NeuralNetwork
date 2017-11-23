@@ -5,6 +5,7 @@
 #include <vector>
 
 class LayerConnection;
+class INormalizerFunction;
 
 class NeuralNetwork
 {
@@ -32,4 +33,6 @@ private:
 
     /// The list of connection between the layers
     std::vector<LayerConnection*> mLayerConnectionList;
+
+    INormalizerFunction* mNormalizerFunction;
 };

@@ -2,11 +2,17 @@
 
 #include <NeuronConnection.h>
 #include <ILayer.h>
+#include <INormalizerFunction.h>
 
-LayerConnection::LayerConnection(ILayer* inputLayer, ILayer* outputLayer)
+#include <Neuron.h>
+
+LayerConnection::LayerConnection(ILayer* inputLayer, 
+                                 ILayer* outputLayer,
+                                 INormalizerFunction* normalizerFunction)
 {
-    mInputLayer = inputLayer;
+    mNormalizerFunction = normalizerFunction;
 
+    mInputLayer = inputLayer;
     mOutputLayer = outputLayer;
 
     for (auto outputNeuron : mOutputLayer->GetNeuronList())
@@ -44,5 +50,11 @@ void LayerConnection::ComputeOutputLayer()
         {
             neuronConnection->ComputeOutputNeuron();
         }
+    }
+
+    // Apply normalizer function so that the output node value is a value between 0 and 1
+    for (auto neuron : mOutputLayer->GetNeuronList())
+    {
+        neuron->SetValue(mNormalizerFunction->NormalizeValue(neuron->GetValue()));
     }
 }

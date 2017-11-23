@@ -4,6 +4,8 @@
 #include <HiddenLayer.h>
 #include <FinalLayer.h>
 
+#include "SigmoidNormalizerFunction.h"
+
 #include <LayerConnection.h>
 
 NeuralNetwork::NeuralNetwork()
@@ -18,10 +20,21 @@ NeuralNetwork::NeuralNetwork()
 
     mFinalLayer = mLayerFactory.CreateFinalLayer();
 
+    // Normalizer function
+    mNormalizerFunction = new SigmoidNormalizerFunction();
+
     // Create connections
-    mLayerConnectionList.push_back(new LayerConnection(mStartLayer, mHiddenLayerList[0]));
-    mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[0], mHiddenLayerList[1]));
-    mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[1], mFinalLayer));
+    mLayerConnectionList.push_back(new LayerConnection(mStartLayer, 
+                                                       mHiddenLayerList[0],
+                                                       mNormalizerFunction));
+
+    mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[0],
+                                                       mHiddenLayerList[1],
+                                                       mNormalizerFunction));
+
+    mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[1], 
+                                                       mFinalLayer,
+                                                       mNormalizerFunction));
 }
 
 NeuralNetwork::~NeuralNetwork()
