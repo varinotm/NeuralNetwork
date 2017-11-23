@@ -1,7 +1,7 @@
-#include <LayerConnection.h>
+#include "LayerConnection.h""
 
-#include <NeuronConnection.h>
-#include <ILayer.h>
+#include "NeuronConnection.h"
+#include "ILayer.h"
 
 LayerConnection::LayerConnection(ILayer* inputLayer, ILayer* outputLayer)
 {

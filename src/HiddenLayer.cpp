@@ -1,6 +1,6 @@
-#include <HiddenLayer.h>
+#include "HiddenLayer.h"
 
-#include <FinalLayer.h>
+#include "FinalLayer.h""
 
 HiddenLayer::HiddenLayer()
 {

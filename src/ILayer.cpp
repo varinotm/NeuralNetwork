@@ -1,5 +1,5 @@
-#include <ILayer.h>
-#include <Neuron.h>
+#include "ILayer.h"
+#include "Neuron.h""
 
 ILayer::ILayer(int nbNeuron)
 {

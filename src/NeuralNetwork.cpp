@@ -1,10 +1,10 @@
-#include <NeuralNetwork.h>
+#include "NeuralNetwork.h"
 
-#include <StartLayer.h>
-#include <HiddenLayer.h>
-#include <FinalLayer.h>
+#include "StartLayer.h"
+#include "HiddenLayer.h"
+#include "FinalLayer.h"
 
-#include <LayerConnection.h>
+#include "LayerConnection.h"
 
 NeuralNetwork::NeuralNetwork()
 {

@@ -1,6 +1,6 @@
-#include <NeuronConnection.h>
+#include "NeuronConnection.h""
 
-#include <Neuron.h>
+#include "Neuron.h"
 
 NeuronConnection::NeuronConnection(Neuron* inputNeuron, Neuron* outputNeuron)
 {
