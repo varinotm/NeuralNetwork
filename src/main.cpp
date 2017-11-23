@@ -9,6 +9,9 @@ int main()
     NeuralNetwork* neuralNetwork; 
 
     neuralNetwork = new NeuralNetwork();
+
+    neuralNetwork->ComputeResult();
+
     delete neuralNetwork;
 
     std::cin.ignore();

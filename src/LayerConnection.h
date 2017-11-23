@@ -15,6 +15,10 @@ public:
     /// Destructor
     ~LayerConnection();
 
+    /// Compute the output of a layer connection
+    /// Will update the value of every output node
+    void ComputeOutputLayer();
+
 private:
     /// The input layer
     ILayer* mInputLayer;
@@ -23,7 +27,6 @@ private:
     ILayer* mOutputLayer;
 
     /// All the neuron connections from 2 layers.
-    /// For each neurons of the input layer, there will be a connection with all
-    /// the neurons of the output layer.
+    /// Each neuron of an output layer is dependent on the value on all input neuron
     std::vector<std::vector<NeuronConnection*>> mNeuronConnectionMatrix;
 };

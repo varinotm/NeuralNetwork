@@ -18,5 +18,6 @@ public:
     std::vector<Neuron*> GetNeuronList();
 
 private:
+    /// The layer contains a list of Neuron
     std::vector<Neuron*> mNeuronList;
 };

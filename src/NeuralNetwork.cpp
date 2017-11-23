@@ -47,3 +47,11 @@ NeuralNetwork::~NeuralNetwork()
     mFinalLayer = nullptr;
 }
 
+void NeuralNetwork::ComputeResult()
+{
+    // For every layer connection from left to right
+    for (auto layerConnection : mLayerConnectionList)
+    {
+        layerConnection->ComputeOutputLayer();
+    }
+}

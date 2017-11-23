@@ -13,8 +13,11 @@ public:
 
     /// Destructor
     ~LayerFactory() = default;
-
+    
+    /// Create a layer
+    // @{
     StartLayer* CreateStartLayer();
     HiddenLayer* CreateHiddenLayer();
     FinalLayer* CreateFinalLayer();
+    // @}
 };
