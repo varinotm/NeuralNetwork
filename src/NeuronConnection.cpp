@@ -14,6 +14,6 @@ void NeuronConnection::ComputeOutputNeuron()
 {
     mOutputNeuron->SetValue(
         mOutputNeuron->GetValue() +
-        mInputNeuron->GetValue() *
-        mWeight);
+        (mInputNeuron->GetValue() *
+        mWeight));
 }

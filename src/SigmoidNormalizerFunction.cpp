@@ -1,7 +1,8 @@
 #include "SigmoidNormalizerFunction.h"
 
+#include <math.h>
+
 double SigmoidNormalizerFunction::NormalizeValue(double value)
 {
-    /// \todo apply sigmoid function here
-    return value;
+    return 1/(1+exp(-value));
 }
