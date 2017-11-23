@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ILayer.h>
+#include "ILayer.h"
 
 /// The final layer : should contain only a list of neurons with 0 or 1
 /// values

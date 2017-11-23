@@ -1,12 +1,12 @@
-#include <NeuralNetwork.h>
+#include "NeuralNetwork.h"
 
-#include <StartLayer.h>
-#include <HiddenLayer.h>
-#include <FinalLayer.h>
+#include "StartLayer.h"
+#include "HiddenLayer.h"
+#include "FinalLayer.h"
 
+
+#include "LayerConnection.h"
 #include "SigmoidNormalizerFunction.h"
-
-#include <LayerConnection.h>
 
 NeuralNetwork::NeuralNetwork()
 {
@@ -45,6 +45,9 @@ NeuralNetwork::~NeuralNetwork()
         layerConnection = nullptr;
     }
     mLayerConnectionList.clear();
+
+    delete mNormalizerFunction;
+    mNormalizerFunction = nullptr;
 
     delete mStartLayer;
     mStartLayer = nullptr;

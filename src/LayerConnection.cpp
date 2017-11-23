@@ -1,10 +1,10 @@
-#include <LayerConnection.h>
+#include "LayerConnection.h"
 
-#include <NeuronConnection.h>
-#include <ILayer.h>
-#include <INormalizerFunction.h>
+#include "NeuronConnection.h"
+#include "ILayer.h"
+#include "INormalizerFunction.h"
 
-#include <Neuron.h>
+#include "Neuron.h"
 
 LayerConnection::LayerConnection(ILayer* inputLayer, 
                                  ILayer* outputLayer,

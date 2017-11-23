@@ -1,9 +1,12 @@
 # NeuralNetwork
-public neural network library
+"public" neural network library
 
-Not working for now (still in progress  )
+Not working for now (still in progress)
 
-test
+However, this is currently one of the most famous neural network computational library.
+It uses several sophisticated algorithms and data structures newly patented.
 
 
-sfajfnasfasniiu
+Copright © 2017 Mathias Varinot and Daniel Nicolau
+
+All rights reserved
