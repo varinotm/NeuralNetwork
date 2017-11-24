@@ -32,6 +32,7 @@ private:
     /// The output layer
     ILayer* mOutputLayer;
 
+    /// \todo struct with neuronconnection and bias????
     /// All the neuron connections from 2 layers.
     /// Each neuron of an output layer is dependent on the value on all input neuron
     std::vector<std::vector<NeuronConnection*>> mNeuronConnectionMatrix;

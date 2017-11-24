@@ -52,6 +52,12 @@ void LayerConnection::ComputeOutputLayer()
         }
     }
 
+    // We add the bias to each output node
+    for (auto neuron : mOutputLayer->GetNeuronList())
+    {
+        neuron->SetValue(neuron->GetValue() + neuron->GetBias());
+    }
+
     // Apply normalizer function so that the output node value is a value between 0 and 1
     for (auto neuron : mOutputLayer->GetNeuronList())
     {

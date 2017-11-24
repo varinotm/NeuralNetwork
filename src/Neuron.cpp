@@ -3,6 +3,7 @@
 Neuron::Neuron()
 {
     mValue = 0;
+    mBias = 0;
 }
 
 Neuron::~Neuron()
@@ -11,6 +12,11 @@ Neuron::~Neuron()
 }
 
 double Neuron::GetValue() const
+{
+    return mValue;
+}
+
+double Neuron::GetBias() const
 {
     return mValue;
 }

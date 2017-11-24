@@ -15,6 +15,10 @@ public:
     /// \return the neuron value
     double GetValue() const;
 
+    /// Get the neuron bias (b) 
+    /// \return the neuron bias
+    double GetBias() const;
+
     /// Set the neuron value (a) value between 0 and 1
     /// \param[in] value the new value of the neuron
     void SetValue(double value);
@@ -23,5 +27,6 @@ private:
     /// Value going from 0 to 1
     double mValue;
 
-
+    /// The bias to add to the neuron
+    double mBias;
 };
