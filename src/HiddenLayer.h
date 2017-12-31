@@ -9,7 +9,8 @@ class HiddenLayer : public ILayer
 {
 public:
     /// Constructor
-    HiddenLayer();
+    /// \param[in] nbNeuron the number of desired neuron for the layer
+    HiddenLayer(int nbNeuron);
 
     /// Destructor
     ~HiddenLayer() = default;

@@ -8,33 +8,51 @@
 #include "LayerConnection.h"
 #include "SigmoidNormalizerFunction.h"
 
-NeuralNetwork::NeuralNetwork()
+NeuralNetwork::NeuralNetwork(std::vector<int> nbNeurons)
 {
     // Test : 1 start layer, 2 hidden layers, 1 output layer
 
     // Initialize layers
-    mStartLayer = mLayerFactory.CreateStartLayer();
+    mStartLayer = mLayerFactory.CreateStartLayer(nbNeurons[0]);
 
-    mHiddenLayerList.push_back(mLayerFactory.CreateHiddenLayer());
-    mHiddenLayerList.push_back(mLayerFactory.CreateHiddenLayer());
+    for (unsigned int i = 1; i < nbNeurons.size()-1; i++)
+    {
+        mHiddenLayerList.push_back(mLayerFactory.CreateHiddenLayer(nbNeurons[i]));
+    }
 
-    mFinalLayer = mLayerFactory.CreateFinalLayer();
+    mFinalLayer = mLayerFactory.CreateFinalLayer(nbNeurons[nbNeurons.size()-1]);
 
     // Normalizer function
     mNormalizerFunction = new SigmoidNormalizerFunction();
 
     // Create connections
-    mLayerConnectionList.push_back(new LayerConnection(mStartLayer, 
-                                                       mHiddenLayerList[0],
-                                                       mNormalizerFunction));
-
-    mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[0],
-                                                       mHiddenLayerList[1],
-                                                       mNormalizerFunction));
-
-    mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[1], 
-                                                       mFinalLayer,
-                                                       mNormalizerFunction));
+    if (mHiddenLayerList.size() == 0)
+    {
+        mLayerConnectionList.push_back(new LayerConnection(mStartLayer,
+                                                           mFinalLayer,
+                                                           mNormalizerFunction));
+    }
+    else
+    {
+        mLayerConnectionList.push_back(new LayerConnection(mStartLayer,
+                                                           mHiddenLayerList[0],
+                                                           mNormalizerFunction));
+        for (unsigned int i = 0; i < mHiddenLayerList.size(); i++)
+        {
+            if (i + 1 < mHiddenLayerList.size())
+            {
+                mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[i],
+                                                                   mHiddenLayerList[i + 1],
+                                                                   mNormalizerFunction));
+            }
+            else
+            {
+                mLayerConnectionList.push_back(new LayerConnection(mHiddenLayerList[i],
+                                                                   mFinalLayer,
+                                                                   mNormalizerFunction));
+            }
+        }
+    }   
 }
 
 NeuralNetwork::~NeuralNetwork()
@@ -63,6 +81,23 @@ NeuralNetwork::~NeuralNetwork()
     mFinalLayer = nullptr;
 }
 
+void NeuralNetwork::Initialize()
+{
+    // Reset the bias of every neuron to 0
+    mStartLayer->InitializeBias();
+    for (auto hiddenLayer : mHiddenLayerList)
+    {
+        hiddenLayer->InitializeBias();
+    }
+    mFinalLayer->InitializeBias();
+
+    // For every layer connection from left to right, initialize the weight
+    for (auto layerConnection : mLayerConnectionList)
+    {
+        layerConnection->InitializeWeight();
+    }
+}
+
 void NeuralNetwork::ComputeResult()
 {
     // For every layer connection from left to right
@@ -70,4 +105,9 @@ void NeuralNetwork::ComputeResult()
     {
         layerConnection->ComputeOutputLayer();
     }
+}
+
+void NeuralNetwork::SetInputLayer(double* input)
+{
+    mStartLayer->SetInputNeurons(input);
 }

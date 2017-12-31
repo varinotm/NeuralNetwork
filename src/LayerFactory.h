@@ -16,8 +16,8 @@ public:
     
     /// Create a layer
     // @{
-    StartLayer* CreateStartLayer();
-    HiddenLayer* CreateHiddenLayer();
-    FinalLayer* CreateFinalLayer();
+    StartLayer* CreateStartLayer(int nbNeuron);
+    HiddenLayer* CreateHiddenLayer(int nbNeuron);
+    FinalLayer* CreateFinalLayer(int nbNeuron);
     // @}
 };

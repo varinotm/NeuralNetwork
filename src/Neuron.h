@@ -19,6 +19,10 @@ public:
     /// \return the neuron bias
     double GetBias() const;
 
+    /// Set the neuron bias (b) 
+    /// \param[in] bias the new bias of the neuron
+    void SetBias(double bias);
+
     /// Set the neuron value (a) value between 0 and 1
     /// \param[in] value the new value of the neuron
     void SetValue(double value);

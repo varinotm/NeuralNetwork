@@ -17,3 +17,8 @@ void NeuronConnection::ComputeOutputNeuron()
         (mInputNeuron->GetValue() *
         mWeight));
 }
+
+void NeuronConnection::SetWeight(double weight)
+{
+    mWeight = weight;
+}

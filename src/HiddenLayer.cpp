@@ -2,7 +2,8 @@
 
 #include "FinalLayer.h"
 
-HiddenLayer::HiddenLayer()
+HiddenLayer::HiddenLayer(int nbNeuron) :
+ILayer(nbNeuron)
 {
 
 }

@@ -9,7 +9,8 @@ class ILayer
 {
 public:
     /// Constructor
-    ILayer(int nbNeuron = 10);
+    /// \param[in] nbNeuron the number of desired neuron for the layer
+    ILayer(int nbNeuron);
 
     /// Destructor
     ~ILayer();
@@ -17,7 +18,10 @@ public:
     /// Get the list of neuron of the layer
     std::vector<Neuron*> GetNeuronList();
 
-private:
+    /// Initialize the bias to 0 of all neurons in the layer
+    void InitializeBias();
+
+protected:
     /// The layer contains a list of Neuron
     std::vector<Neuron*> mNeuronList;
 };

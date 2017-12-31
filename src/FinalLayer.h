@@ -8,7 +8,8 @@ class FinalLayer : public ILayer
 {
 public:
     /// Constructor
-    FinalLayer() = default;
+    /// \param[in] nbNeuron the number of desired neuron for the layer
+    FinalLayer(int nbNeuron);
 
     /// Destructor
     ~FinalLayer() = default;

@@ -25,3 +25,8 @@ void Neuron::SetValue(double value)
 {
     mValue = value;
 }
+
+void Neuron::SetBias(double bias)
+{
+    mBias = bias;
+}

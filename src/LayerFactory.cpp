@@ -4,17 +4,17 @@
 #include "HiddenLayer.h"
 #include "FinalLayer.h"
 
-StartLayer* LayerFactory::CreateStartLayer()
+StartLayer* LayerFactory::CreateStartLayer(int nbNeuron)
 {
-    return new StartLayer();
+    return new StartLayer(nbNeuron);
 }
 
-HiddenLayer* LayerFactory::CreateHiddenLayer()
+HiddenLayer* LayerFactory::CreateHiddenLayer(int nbNeuron)
 {
-    return new HiddenLayer();
+    return new HiddenLayer(nbNeuron);
 }
 
-FinalLayer* LayerFactory::CreateFinalLayer()
+FinalLayer* LayerFactory::CreateFinalLayer(int nbNeuron)
 {
-    return new FinalLayer();
+    return new FinalLayer(nbNeuron);
 }

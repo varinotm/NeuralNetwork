@@ -25,6 +25,9 @@ public:
     /// Will update the value of every output node
     void ComputeOutputLayer();
 
+    /// Initialize the value of the weight and bias
+    void InitializeWeight();
+
 private:
     /// The input layer
     ILayer* mInputLayer;

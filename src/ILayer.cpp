@@ -23,3 +23,11 @@ std::vector<Neuron*> ILayer::GetNeuronList()
 {
     return mNeuronList;
 }
+
+void ILayer::InitializeBias()
+{
+    for (auto Neuron : mNeuronList)
+    {
+        Neuron->SetBias(0);
+    }
+}

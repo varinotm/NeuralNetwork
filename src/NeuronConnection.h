@@ -16,6 +16,9 @@ public:
     /// outputNodeValue = (inputNodeValue1 * weight1) + (inputNodeValue2 * weight2) + ...
     void ComputeOutputNeuron();
 
+    /// Set the weight of the connection
+    void SetWeight(double weight);
+
 private:
     /// The weight of the connection (w)
     double mWeight;

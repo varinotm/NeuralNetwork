@@ -6,6 +6,17 @@
 
 #include "Neuron.h"
 
+#include <math.h>
+
+namespace
+{
+    double fRand(double fMin, double fMax)
+    {
+        double f = (double)rand() / RAND_MAX;
+        return fMin + f * (fMax - fMin);
+    }
+}
+
 LayerConnection::LayerConnection(ILayer* inputLayer, 
                                  ILayer* outputLayer,
                                  INormalizerFunction* normalizerFunction)
@@ -38,6 +49,21 @@ LayerConnection::~LayerConnection()
         neuronConnectionList.clear();
     }
     mNeuronConnectionMatrix.clear();
+}
+
+void LayerConnection::InitializeWeight()
+{
+    // For every output node
+    for (auto neuronConnectionList : mNeuronConnectionMatrix)
+    {
+        // For every connection of an output node
+        for (auto neuronConnection : neuronConnectionList)
+        {
+            int nbInputNeuron = neuronConnectionList.size();
+            neuronConnection->SetWeight(fRand(-1/sqrt(nbInputNeuron),
+                                               1/sqrt(nbInputNeuron)));
+        }
+    }
 }
 
 void LayerConnection::ComputeOutputLayer()
