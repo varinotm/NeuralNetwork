@@ -4,9 +4,12 @@
 #include "HiddenLayer.h"
 #include "FinalLayer.h"
 
-
 #include "LayerConnection.h"
 #include "SigmoidNormalizerFunction.h"
+
+#include "Neuron.h"
+#include "NeuronConnection.h"
+#include <fstream>
 
 NeuralNetwork::NeuralNetwork(std::vector<int> nbNeurons)
 {
@@ -57,28 +60,7 @@ NeuralNetwork::NeuralNetwork(std::vector<int> nbNeurons)
 
 NeuralNetwork::~NeuralNetwork()
 {
-    for (auto layerConnection : mLayerConnectionList)
-    {
-        delete layerConnection;
-        layerConnection = nullptr;
-    }
-    mLayerConnectionList.clear();
-
-    delete mNormalizerFunction;
-    mNormalizerFunction = nullptr;
-
-    delete mStartLayer;
-    mStartLayer = nullptr;
-    
-    for (auto hiddenLayer : mHiddenLayerList)
-    {
-        delete hiddenLayer;
-        hiddenLayer = nullptr;
-    }
-    mHiddenLayerList.clear();
-
-    delete mFinalLayer;
-    mFinalLayer = nullptr;
+    Clear();
 }
 
 void NeuralNetwork::Initialize()
@@ -110,4 +92,85 @@ void NeuralNetwork::ComputeResult()
 void NeuralNetwork::SetInputLayer(double* input)
 {
     mStartLayer->SetInputNeurons(input);
+}
+
+void NeuralNetwork::Clear()
+{
+    for (auto layerConnection : mLayerConnectionList)
+    {
+        delete layerConnection;
+        layerConnection = nullptr;
+    }
+    mLayerConnectionList.clear();
+
+    delete mNormalizerFunction;
+    mNormalizerFunction = nullptr;
+
+    delete mStartLayer;
+    mStartLayer = nullptr;
+
+    for (auto hiddenLayer : mHiddenLayerList)
+    {
+        delete hiddenLayer;
+        hiddenLayer = nullptr;
+    }
+    mHiddenLayerList.clear();
+
+    delete mFinalLayer;
+    mFinalLayer = nullptr;
+}
+
+void NeuralNetwork::Save(const std::string& path)
+{
+    std::ofstream myfile;
+    myfile.open(path);
+    
+    /// First line will save the number of neurons at each layer
+    myfile << mStartLayer->GetNeuronList().size() << " ";
+
+    for (auto hiddenLayer : mHiddenLayerList)
+    {
+        myfile << hiddenLayer->GetNeuronList().size() << " ";
+    }
+
+    myfile << mFinalLayer->GetNeuronList().size() << "\n";
+
+    /// Next we save all bias, layer per layer, neuron per neuron
+    for (auto neuron : mStartLayer->GetNeuronList())
+    {
+        // Should be all 0, since its the start layer
+        myfile << neuron->GetBias() << "\n";
+    }
+
+    for (auto hiddenLayer : mHiddenLayerList)
+    {
+        for (auto neuron : hiddenLayer->GetNeuronList())
+        {
+            myfile << neuron->GetBias() << "\n";
+        }
+    }
+    
+    for (auto neuron : mFinalLayer->GetNeuronList())
+    {
+        myfile << neuron->GetBias() << "\n";
+    }
+
+    // Finally, we save the value of each weight
+    for (auto layerConnection : mLayerConnectionList)
+    {
+        for (auto neuronConnectionList : layerConnection->GetNeuronConnectionMatrix())
+        {
+            for (auto neuronConnection : neuronConnectionList)
+            {
+                myfile << neuronConnection->GetWeight() << "\n";
+            }
+        }        
+    }
+
+    myfile.close();
+}
+
+void NeuralNetwork::Load(const std::string& path)
+{
+
 }

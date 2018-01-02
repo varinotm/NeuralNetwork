@@ -22,3 +22,8 @@ void NeuronConnection::SetWeight(double weight)
 {
     mWeight = weight;
 }
+
+double NeuronConnection::GetWeight() const
+{
+    return mWeight;
+}

@@ -90,3 +90,8 @@ void LayerConnection::ComputeOutputLayer()
         neuron->SetValue(mNormalizerFunction->NormalizeValue(neuron->GetValue()));
     }
 }
+
+std::vector<std::vector<NeuronConnection*>> LayerConnection::GetNeuronConnectionMatrix() const
+{
+    return mNeuronConnectionMatrix;
+}

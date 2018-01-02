@@ -11,7 +11,7 @@ class NeuralNetwork
 {
 public:
     /// Constructor
-    /// \param[in] nbNeuron the number of neurons peur layer
+    /// \param[in] nbNeuron the number of neurons per layer
     NeuralNetwork(std::vector<int> nbNeurons);
 
     /// Destructor
@@ -29,7 +29,20 @@ public:
     /// an input layer must be set
     void ComputeResult();
 
+    /// Save the current neural network to the specified path
+    /// \param[in] path the path to the file containing all bias and weight of the neural network.
+    void Save(const std::string& path);
+
+    /// Load the wanted neural network
+    /// \param[in] path the path to load the file containing all bias and weight and build
+    ///                 the neural network.
+    void Load(const std::string& path);
+
 private:
+
+    /// Clear the neural network, resetting everything
+    void Clear();
+
     /// The layer factory
     LayerFactory mLayerFactory;
 

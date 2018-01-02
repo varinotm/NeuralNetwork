@@ -28,6 +28,10 @@ public:
     /// Initialize the value of the weight and bias
     void InitializeWeight();
 
+    /// Get the neuron connection matrix of a layer connection
+    /// \return the neuron connection matrix
+    std::vector<std::vector<NeuronConnection*>> GetNeuronConnectionMatrix() const;
+
 private:
     /// The input layer
     ILayer* mInputLayer;

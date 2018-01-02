@@ -19,6 +19,10 @@ public:
     /// Set the weight of the connection
     void SetWeight(double weight);
 
+    /// Get the weight of a connection between 2 neurons
+    /// \return the weight of the connection
+    double GetWeight() const;
+
 private:
     /// The weight of the connection (w)
     double mWeight;
