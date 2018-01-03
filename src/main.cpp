@@ -16,7 +16,7 @@ int main()
     neuralNetwork = new NeuralNetwork(nbNeuronPerLayer);
 
     // Initialize the neural network, before training it
-    neuralNetwork->Initialize();
+    neuralNetwork->InitializeBiasAndWeights();
 
     /// \todo Set the training data
     trainer = new Trainer();
@@ -30,6 +30,9 @@ int main()
 
     // Save the neural network in a file after training
     neuralNetwork->Save("myFirstNeuralNetwork.txt");
+
+    // Load the saved neural network
+    neuralNetwork->Load("myFirstNeuralNetwork.txt");
 
     /// \todo Set the neural network initial layer for testing purpose after training
     //neuralNetwork->SetInputLayer();

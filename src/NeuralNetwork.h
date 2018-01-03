@@ -17,8 +17,12 @@ public:
     /// Destructor
     ~NeuralNetwork();
 
+    /// Initialize the neural network, setting the size of each layers
+    /// \param[in] nbNeurons the number of neurons for each layer
+    void Initialize(std::vector<int> nbNeurons);
+
     /// Initialize the neural network, setting the bias to 0 and randomizing the weight
-    void Initialize();
+    void InitializeBiasAndWeights();
 
     /// Initialize the input layer
     /// \param[in] input the input vector containing the initial data from which we

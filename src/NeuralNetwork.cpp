@@ -9,21 +9,30 @@
 
 #include "Neuron.h"
 #include "NeuronConnection.h"
+#include <sstream>
 #include <fstream>
 
 NeuralNetwork::NeuralNetwork(std::vector<int> nbNeurons)
 {
-    // Test : 1 start layer, 2 hidden layers, 1 output layer
+    Initialize(nbNeurons);
+}
 
+NeuralNetwork::~NeuralNetwork()
+{
+    Clear();
+}
+
+void NeuralNetwork::Initialize(std::vector<int> nbNeurons)
+{
     // Initialize layers
     mStartLayer = mLayerFactory.CreateStartLayer(nbNeurons[0]);
 
-    for (unsigned int i = 1; i < nbNeurons.size()-1; i++)
+    for (unsigned int i = 1; i < nbNeurons.size() - 1; i++)
     {
         mHiddenLayerList.push_back(mLayerFactory.CreateHiddenLayer(nbNeurons[i]));
     }
 
-    mFinalLayer = mLayerFactory.CreateFinalLayer(nbNeurons[nbNeurons.size()-1]);
+    mFinalLayer = mLayerFactory.CreateFinalLayer(nbNeurons[nbNeurons.size() - 1]);
 
     // Normalizer function
     mNormalizerFunction = new SigmoidNormalizerFunction();
@@ -55,15 +64,10 @@ NeuralNetwork::NeuralNetwork(std::vector<int> nbNeurons)
                                                                    mNormalizerFunction));
             }
         }
-    }   
+    }
 }
 
-NeuralNetwork::~NeuralNetwork()
-{
-    Clear();
-}
-
-void NeuralNetwork::Initialize()
+void NeuralNetwork::InitializeBiasAndWeights()
 {
     // Reset the bias of every neuron to 0
     mStartLayer->InitializeBias();
@@ -172,5 +176,67 @@ void NeuralNetwork::Save(const std::string& path)
 
 void NeuralNetwork::Load(const std::string& path)
 {
+    /// \todo We may want to create a duplicate neural network 
+    /// and copy to the original only if the loading is successful
 
+    /// Clear the current neural network
+    Clear();
+
+    std::ifstream myfile(path);
+    if (myfile.is_open())
+    {
+        std::string line;
+
+        /// Read the first line to initialize the neural network size
+        getline(myfile, line);
+
+        std::vector<int> nbNeurons;
+        std::istringstream is(line);
+        int layerNeurons;
+        double value;
+
+        while (is >> layerNeurons)
+        {
+            nbNeurons.push_back(layerNeurons);
+        }
+
+        Initialize(nbNeurons);
+
+        /// Set the bias of each neuron
+        for (auto neuron : mStartLayer->GetNeuronList())
+        {
+            myfile >> value;
+            neuron->SetBias(value);
+        }
+
+        for (auto hiddenLayer : mHiddenLayerList)
+        {
+            for (auto neuron : hiddenLayer->GetNeuronList())
+            {
+                myfile >> value;
+                neuron->SetBias(value);
+            }
+        }
+
+        for (auto neuron : mFinalLayer->GetNeuronList())
+        {
+            myfile >> value;
+            neuron->SetBias(value);
+        }
+
+        // Set the weight of each connection
+        for (auto layerConnection : mLayerConnectionList)
+        {
+            for (auto neuronConnectionList : layerConnection->GetNeuronConnectionMatrix())
+            {
+                for (auto neuronConnection : neuronConnectionList)
+                {
+                    myfile >> value;
+                    neuronConnection->SetWeight(value);
+                }
+            }
+        }
+
+        myfile.close();
+    }    
 }
