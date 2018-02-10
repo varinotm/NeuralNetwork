@@ -62,7 +62,7 @@ void Trainer::Train()
             mNeuralNetwork->SetInputLayer(mTrainingData[j].first);
             mNeuralNetwork->ComputeResult();
 
-            /// \todo Change weight, bias according to result!
+
         }
     }
 }
