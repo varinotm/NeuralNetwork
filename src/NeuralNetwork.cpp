@@ -93,6 +93,16 @@ void NeuralNetwork::ComputeResult()
     }
 }
 
+int NeuralNetwork::GetOutputSize()
+{
+    return mFinalLayer->GetNeuronList().size();
+}
+
+std::vector<double> NeuralNetwork::GetResult()
+{
+    return mFinalLayer->GetResult();
+}
+
 void NeuralNetwork::SetInputLayer(double* input)
 {
     mStartLayer->SetInputNeurons(input);

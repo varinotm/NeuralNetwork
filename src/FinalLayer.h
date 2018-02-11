@@ -13,4 +13,6 @@ public:
 
     /// Destructor
     ~FinalLayer() = default;
+
+    std::vector<double> GetResult();
 };

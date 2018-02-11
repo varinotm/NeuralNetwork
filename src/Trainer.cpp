@@ -53,16 +53,32 @@ void Trainer::Train()
 {
     for (int i = 0; i < mNbIterations; i++)
     {
-        /// Take random training sets for the current iteration
+        // Take random training sets for the current iteration
         random_unique(mTrainingData.begin(), mTrainingData.end(), mNbBatchSize);
 
-        /// We iterate through these chosen data and learn from this set
+        // The cost function of this iteration
+        std::vector<double> batchCost;
+        batchCost.resize(mNeuralNetwork->GetOutputSize());
+
+        // We iterate through these chosen data and learn from this set
         for (int j = 0; j < mNbBatchSize; j++)
         {
             mNeuralNetwork->SetInputLayer(mTrainingData[j].first);
             mNeuralNetwork->ComputeResult();
 
+            /// \todo Change weight, bias according to result!
+            auto result = mNeuralNetwork->GetResult();
 
+            for (unsigned int k = 0; k < result.size(); k++)
+            {
+                batchCost[k] += pow(result[k] - mTrainingData[j].second[k], 2);
+            }
+        }
+
+        /// Calculate the mean of the batch cost
+        for (unsigned int j = 0; j < batchCost.size(); j++)
+        {
+            batchCost[j] /= mNbBatchSize;
         }
     }
 }

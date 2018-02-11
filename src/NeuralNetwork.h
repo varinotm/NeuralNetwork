@@ -30,8 +30,15 @@ public:
     void SetInputLayer(double* input);
 
     /// Compute the result of the output layer
-    /// an input layer must be set
+    /// \warn an input layer must be set
     void ComputeResult();
+
+    /// Get the result of the output layer
+    std::vector<double> GetResult();
+
+    /// Get the output size
+    /// \return the number of nodes in the last layer
+    int GetOutputSize();
 
     /// Save the current neural network to the specified path
     /// \param[in] path the path to the file containing all bias and weight of the neural network.

@@ -13,7 +13,7 @@ int main()
     NeuralNetwork* neuralNetwork; 
     Trainer* trainer;
 
-    std::vector<int> nbNeuronPerLayer = { 2, 2, 2 };
+    std::vector<int> nbNeuronPerLayer = { 784, 800, 10 };
 
     neuralNetwork = new NeuralNetwork(nbNeuronPerLayer);
 

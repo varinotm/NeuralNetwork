@@ -19,7 +19,7 @@ ILayer::~ILayer()
     mNeuronList.clear();
 }
 
-std::vector<Neuron*> ILayer::GetNeuronList()
+std::vector<Neuron*>& ILayer::GetNeuronList()
 {
     return mNeuronList;
 }

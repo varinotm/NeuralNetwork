@@ -16,7 +16,7 @@ public:
     ~ILayer();
 
     /// Get the list of neuron of the layer
-    std::vector<Neuron*> GetNeuronList();
+    std::vector<Neuron*>& GetNeuronList();
 
     /// Initialize the bias to 0 of all neurons in the layer
     void InitializeBias();
