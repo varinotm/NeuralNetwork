@@ -15,4 +15,9 @@ public:
     ~FinalLayer() = default;
 
     std::vector<double> GetResult();
+
+    /// Set the delta of the final layer
+    /// \param[in] expectedOutput the expected output of the final layer
+    /// \warn the values of the final layer must have been set before setting the delta
+    void SetDelta(double* expectedOutput);
 };

@@ -108,6 +108,13 @@ void NeuralNetwork::SetInputLayer(double* input)
     mStartLayer->SetInputNeurons(input);
 }
 
+void NeuralNetwork::ComputeDelta(double* expectedOutput)
+{
+    mFinalLayer->SetDelta(expectedOutput);
+
+    /// \todo compute delta of all neurons
+}
+
 void NeuralNetwork::Clear()
 {
     for (auto layerConnection : mLayerConnectionList)

@@ -29,6 +29,11 @@ public:
     ///                  want to compute an output
     void SetInputLayer(double* input);
 
+    /// Compute the delta of all neurons given an expected output
+    /// \param[in] expectedOutput the expected output
+    /// \warn a result should be computed before giving an expected output
+    void ComputeDelta(double* expectedOutput);
+
     /// Compute the result of the output layer
     /// \warn an input layer must be set
     void ComputeResult();
