@@ -31,7 +31,7 @@ int main()
     trainer->SetTrainingData(trainingData);
     trainer->SetNeuralNetwork(neuralNetwork);
     trainer->SetBatchSize(100);
-    trainer->SetNumberOfIterations(1000);
+    trainer->SetNumberOfIterations(10);
     trainer->Train();
 
     // Save the neural network in a file after training

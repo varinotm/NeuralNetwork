@@ -34,7 +34,8 @@ public:
 
     /// Start training
     /// Call when the trainer parameters has been set
-    void Train();
+    /// learningRate the learning rate of the neural network [default = 0.5]
+    void Train(double learningRate = 0.5);
 
 private:
     /// The current neural network to train

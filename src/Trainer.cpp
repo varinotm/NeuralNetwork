@@ -49,10 +49,14 @@ void Trainer::SetNumberOfIterations(int nbIterations)
     mNbIterations = nbIterations;
 }
 
-void Trainer::Train()
+void Trainer::Train(double learningRate)
 {
     for (int i = 0; i < mNbIterations; i++)
     {
+        if (i == 9)
+        {
+            int allo = 3;
+        }
         // Take random training sets for the current iteration
         random_unique(mTrainingData.begin(), mTrainingData.end(), mNbBatchSize);
 
@@ -62,8 +66,10 @@ void Trainer::Train()
             mNeuralNetwork->SetInputLayer(mTrainingData[j].first);
             mNeuralNetwork->ComputeResult();
 
-            /// \todo Change weight, bias according to result!
             mNeuralNetwork->ComputeDelta(mTrainingData[j].second);
+
+            /// \todo Change weight and bias only when the batch is complete
+            mNeuralNetwork->UpdateWeightAndBias(learningRate);
         }
     }
 }

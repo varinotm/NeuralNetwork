@@ -23,6 +23,14 @@ public:
     /// \return the weight of the connection
     double GetWeight() const;
 
+    /// Update the weight during a training of the neural network
+    /// \param[in] learningRate the learning rate
+    void UpdateWeight(double learningRate);
+
+    /// Calculate and return the error factor of the current connection
+    /// \return the error factor of the current connection
+    double GetSubErrorFactor() const;
+
 private:
     /// The weight of the connection (w)
     double mWeight;

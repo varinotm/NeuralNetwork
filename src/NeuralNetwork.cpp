@@ -93,7 +93,7 @@ void NeuralNetwork::ComputeResult()
     }
 }
 
-int NeuralNetwork::GetOutputSize()
+unsigned int NeuralNetwork::GetOutputSize()
 {
     return mFinalLayer->GetNeuronList().size();
 }
@@ -113,6 +113,20 @@ void NeuralNetwork::ComputeDelta(double* expectedOutput)
     mFinalLayer->SetDelta(expectedOutput);
 
     /// \todo compute delta of all neurons
+    /// We start fromm the last layer to the first layer in the delta computation
+    for (unsigned int i = mLayerConnectionList.size()-1; i > 0; i--)
+    {
+        auto layerConnection = mLayerConnectionList[i];
+        layerConnection->ComputeInputLayerDelta();
+    }
+}
+
+void NeuralNetwork::UpdateWeightAndBias(double learningRate)
+{
+    for (auto layerConnection : mLayerConnectionList)
+    {
+        layerConnection->UpdateWeightAndBias(learningRate);
+    }
 }
 
 void NeuralNetwork::Clear()

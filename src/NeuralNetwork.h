@@ -34,6 +34,10 @@ public:
     /// \warn a result should be computed before giving an expected output
     void ComputeDelta(double* expectedOutput);
 
+    /// Update the weight and bias of the neural network
+    /// \param[in] learningRate the learning rate of the neural network
+    void UpdateWeightAndBias(double learningRate);
+
     /// Compute the result of the output layer
     /// \warn an input layer must be set
     void ComputeResult();
@@ -43,7 +47,7 @@ public:
 
     /// Get the output size
     /// \return the number of nodes in the last layer
-    int GetOutputSize();
+    unsigned int GetOutputSize();
 
     /// Save the current neural network to the specified path
     /// \param[in] path the path to the file containing all bias and weight of the neural network.

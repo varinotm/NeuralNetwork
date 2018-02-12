@@ -37,7 +37,7 @@ void Neuron::SetBias(double bias)
     mBias = bias;
 }
 
-void Neuron::SetDelta(double delta)
+void Neuron::ComputeDelta(double errorFactor)
 {
-    mDelta = delta;
+    mDelta = mValue * (1 - mValue) * errorFactor;
 }

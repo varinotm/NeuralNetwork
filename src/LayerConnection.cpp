@@ -59,7 +59,7 @@ void LayerConnection::InitializeWeight()
         // For every connection of an output node
         for (auto neuronConnection : neuronConnectionList)
         {
-            int nbInputNeuron = neuronConnectionList.size();
+            auto nbInputNeuron = neuronConnectionList.size();
             neuronConnection->SetWeight(fRand(-1/sqrt(nbInputNeuron),
                                                1/sqrt(nbInputNeuron)));
         }
@@ -88,6 +88,43 @@ void LayerConnection::ComputeOutputLayer()
     for (auto neuron : mOutputLayer->GetNeuronList())
     {
         neuron->SetValue(mNormalizerFunction->NormalizeValue(neuron->GetValue()));
+    }
+}
+
+void LayerConnection::ComputeInputLayerDelta()
+{
+    // for every input node
+    for (unsigned int i = 0; i < mInputLayer->GetNeuronList().size(); i++)
+    {
+        double errorFactor = 0;
+
+        // For every output node
+        for (unsigned int j = 0; j < mOutputLayer->GetNeuronList().size(); j++)
+        {
+            errorFactor += mNeuronConnectionMatrix[j][i]->GetSubErrorFactor();
+        }
+        mInputLayer->GetNeuronList()[i]->ComputeDelta(errorFactor);
+    }
+}
+
+void LayerConnection::UpdateWeightAndBias(double learningRate)
+{
+    // Update the bias
+    for (auto outputNeuron : mOutputLayer->GetNeuronList())
+    {
+        // New bias = old bias * (learning rate * delta)
+        outputNeuron->SetBias(outputNeuron->GetBias() + (learningRate * outputNeuron->GetDelta()));
+    }
+
+    // Update the weight
+    // For every output node
+    for (auto neuronConnectionList : mNeuronConnectionMatrix)
+    {
+        // For every connection of an output node
+        for (auto neuronConnection : neuronConnectionList)
+        {
+            neuronConnection->UpdateWeight(learningRate);
+        }
     }
 }
 

@@ -27,3 +27,15 @@ double NeuronConnection::GetWeight() const
 {
     return mWeight;
 }
+
+double NeuronConnection::GetSubErrorFactor() const
+{
+    return mOutputNeuron->GetDelta() * mWeight;
+}
+
+void NeuronConnection::UpdateWeight(double learningRate)
+{
+    SetWeight(
+        mWeight + (learningRate * mInputNeuron->GetValue() * mOutputNeuron->GetDelta())
+    );
+}
