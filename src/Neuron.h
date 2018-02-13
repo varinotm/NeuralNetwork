@@ -31,6 +31,10 @@ public:
     /// \param[in] value the new value of the neuron
     void SetValue(double value);
 
+    /// Set the neuron delta
+    /// \param[in] delta the new delta of the neuron
+    void SetDelta(double delta);
+
     /// compute the neuron delta
     /// delta = value * (1-value) * errorFactor
     /// \param[in] errorFactor the error factor

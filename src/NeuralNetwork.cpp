@@ -24,18 +24,20 @@ NeuralNetwork::~NeuralNetwork()
 
 void NeuralNetwork::Initialize(std::vector<int> nbNeurons)
 {
+    // Normalizer function
+    mNormalizerFunction = new SigmoidNormalizerFunction();
+
     // Initialize layers
     mStartLayer = mLayerFactory.CreateStartLayer(nbNeurons[0]);
 
     for (unsigned int i = 1; i < nbNeurons.size() - 1; i++)
     {
-        mHiddenLayerList.push_back(mLayerFactory.CreateHiddenLayer(nbNeurons[i]));
+        mHiddenLayerList.push_back(
+            mLayerFactory.CreateHiddenLayer(nbNeurons[i]));
     }
 
-    mFinalLayer = mLayerFactory.CreateFinalLayer(nbNeurons[nbNeurons.size() - 1]);
-
-    // Normalizer function
-    mNormalizerFunction = new SigmoidNormalizerFunction();
+    mFinalLayer = mLayerFactory.CreateFinalLayer(
+        nbNeurons[nbNeurons.size() - 1]);
 
     // Create connections
     if (mHiddenLayerList.size() == 0)
@@ -82,6 +84,19 @@ void NeuralNetwork::InitializeBiasAndWeights()
     {
         layerConnection->InitializeWeight();
     }
+}
+
+void NeuralNetwork::ResetValueAndDelta()
+{
+    mStartLayer->ResetValue();
+    mStartLayer->ResetDelta();
+    for (auto hiddenLayer : mHiddenLayerList)
+    {
+        hiddenLayer->ResetValue();
+        hiddenLayer->ResetDelta();
+    }
+    mFinalLayer->ResetValue();
+    mFinalLayer->ResetDelta();
 }
 
 void NeuralNetwork::ComputeResult()

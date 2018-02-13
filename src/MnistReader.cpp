@@ -57,7 +57,7 @@ namespace MnistReader
                     {
                         unsigned char temp = 0;
                         imageFile.read((char*)&temp, sizeof(temp));
-                        inputData[r*nbCols + c] = (double)temp;
+                        inputData[r*nbCols + c] = (double)temp / 255.0;
                     }
                 }
 

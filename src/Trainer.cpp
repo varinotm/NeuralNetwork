@@ -53,16 +53,14 @@ void Trainer::Train(double learningRate)
 {
     for (int i = 0; i < mNbIterations; i++)
     {
-        if (i == 9)
-        {
-            int allo = 3;
-        }
         // Take random training sets for the current iteration
         random_unique(mTrainingData.begin(), mTrainingData.end(), mNbBatchSize);
 
         // We iterate through these chosen data and learn from this set
         for (int j = 0; j < mNbBatchSize; j++)
         {
+            mNeuralNetwork->ResetValueAndDelta();
+            
             mNeuralNetwork->SetInputLayer(mTrainingData[j].first);
             mNeuralNetwork->ComputeResult();
 

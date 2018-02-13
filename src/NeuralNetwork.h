@@ -38,6 +38,9 @@ public:
     /// \param[in] learningRate the learning rate of the neural network
     void UpdateWeightAndBias(double learningRate);
 
+    /// Reset the values of all neurons and their delta
+    void ResetValueAndDelta();
+
     /// Compute the result of the output layer
     /// \warn an input layer must be set
     void ComputeResult();

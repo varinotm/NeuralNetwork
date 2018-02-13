@@ -21,6 +21,12 @@ public:
     /// Initialize the bias to 0 of all neurons in the layer
     void InitializeBias();
 
+    /// Reset all neurons values to 0
+    void ResetValue();
+
+    /// Reset all neurons deltas to 0
+    void ResetDelta();
+
 protected:
     /// The layer contains a list of Neuron
     std::vector<Neuron*> mNeuronList;

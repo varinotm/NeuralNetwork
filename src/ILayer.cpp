@@ -26,8 +26,24 @@ std::vector<Neuron*>& ILayer::GetNeuronList()
 
 void ILayer::InitializeBias()
 {
-    for (auto Neuron : mNeuronList)
+    for (auto neuron : mNeuronList)
     {
-        Neuron->SetBias(0);
+        neuron->SetBias(0);
+    }
+}
+
+void ILayer::ResetValue()
+{
+    for (auto neuron : mNeuronList)
+    {
+        neuron->SetValue(0);
+    }
+}
+
+void ILayer::ResetDelta()
+{
+    for (auto neuron : mNeuronList)
+    {
+        neuron->SetDelta(0);
     }
 }
