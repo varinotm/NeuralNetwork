@@ -6,6 +6,7 @@
 
 namespace
 {
+    // Algo taken from : https://ideone.com/3A3cv
     template<class BidiIter >
     BidiIter random_unique(BidiIter begin, BidiIter end, size_t num_random)
     {

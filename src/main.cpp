@@ -21,7 +21,7 @@ int main()
     NeuralNetwork* neuralNetwork; 
     Trainer* trainer;
 
-    std::vector<int> nbNeuronPerLayer = { 2, 2, 2 };
+    std::vector<int> nbNeuronPerLayer = { 784, 800, 10};
 
     neuralNetwork = new NeuralNetwork(nbNeuronPerLayer);
 
@@ -30,7 +30,7 @@ int main()
 
     // Read mnist dataset
     std::vector<std::pair<double*, double*>> trainingData;
-    double* array1 = new double[2];
+    /*double* array1 = new double[2];
     double* array2 = new double[2];
     double* array3 = new double[2];
     double* array4 = new double[2];
@@ -50,10 +50,10 @@ int main()
     trainingData.push_back(std::make_pair(array1, array3));
     trainingData.push_back(std::make_pair(array2, array2));
     trainingData.push_back(std::make_pair(array3, array2));
-    trainingData.push_back(std::make_pair(array4, array2));
-    /*MnistReader::ReadMnistInputOutput("train-images.idx3-ubyte", 
+    trainingData.push_back(std::make_pair(array4, array2));*/
+    MnistReader::ReadMnistInputOutput("train-images.idx3-ubyte", 
                                       "train-labels.idx1-ubyte", 
-                                      trainingData);*/
+                                      trainingData);
 
     // Set the training data and train the neural network
     trainer = new Trainer();
@@ -61,7 +61,7 @@ int main()
     trainer->SetNeuralNetwork(neuralNetwork);
     trainer->SetBatchSize(1);
     trainer->SetNumberOfIterations(100000);
-    trainer->Train();
+    trainer->Train(0.1);
 
     // Save the neural network in a file after training
     neuralNetwork->Save("myFirstNeuralNetwork.txt");
