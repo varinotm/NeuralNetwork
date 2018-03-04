@@ -69,7 +69,7 @@ void LayerConnection::InitializeWeight()
 void LayerConnection::ComputeOutputLayer()
 {
     // For every output node
-    for (auto neuronConnectionList : mNeuronConnectionMatrix)
+    for (auto& neuronConnectionList : mNeuronConnectionMatrix)
     {
         // For every connection of an output node
         for (auto neuronConnection : neuronConnectionList)

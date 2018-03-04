@@ -50,7 +50,7 @@ public:
 
     /// Get the output size
     /// \return the number of nodes in the last layer
-    unsigned int GetOutputSize();
+    size_t GetOutputSize();
 
     /// Save the current neural network to the specified path
     /// \param[in] path the path to the file containing all bias and weight of the neural network.

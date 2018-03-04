@@ -1,7 +1,11 @@
 # NeuralNetwork
 public neural network library
 
-Not working for now (still in progress)
+Working (but way too slow)
+
+Priorities : 
+   - implement mini batch calculation
+   - speed up output calculation
 
 Copyright © 2017 Mathias Varinot and Daniel Nicolau
 

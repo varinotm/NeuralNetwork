@@ -25,6 +25,7 @@ public:
 
     /// Set the batch size of each iteration of the training. This number must
     /// be below the total number of the training data
+    /// \warn not working for now
     void SetBatchSize(int nbBatchSize);
 
     /// Set the number of iterations to train
