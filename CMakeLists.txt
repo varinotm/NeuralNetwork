@@ -1,6 +1,10 @@
 #Author : Mathias Varinot
 #Date : 25 February 2018
 
+# Activate C++
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Minimum required cmake version
 cmake_minimum_required(VERSION 3.2)
 
