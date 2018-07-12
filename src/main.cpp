@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "NeuralNetwork.h"
-#include "Trainer.h"
+#include "./NeuralNetwork/NeuralNetwork.h"
+#include "./Trainer/Trainer.h"
 
-#include "MnistReader.h"
+#include "./Mnist/MnistReader.h"
     
 #include <ctime>
 
