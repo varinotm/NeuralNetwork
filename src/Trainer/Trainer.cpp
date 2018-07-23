@@ -1,6 +1,6 @@
 #include "Trainer.h"
 
-#include "../NeuralNetwork/NeuralNetwork.h"
+#include "NeuralNetwork\NeuralNetwork.h"
 
 #include <algorithm>
 

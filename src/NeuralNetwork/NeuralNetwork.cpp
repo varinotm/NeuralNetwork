@@ -1,14 +1,14 @@
 #include "NeuralNetwork.h"
 
-#include "./Layers/StartLayer.h"
-#include "./Layers/HiddenLayer.h"
-#include "./Layers/FinalLayer.h"
+#include "Layers/StartLayer.h"
+#include "Layers/HiddenLayer.h"
+#include "Layers/FinalLayer.h"
 
-#include "./Layers/LayerConnection.h"
-#include "../Functions/SigmoidNormalizerFunction.h"
+#include "Layers/LayerConnection.h"
+#include "Functions/SigmoidNormalizerFunction.h"
 
-#include "./Neurons/Neuron.h"
-#include "./Neurons/NeuronConnection.h"
+#include "Neurons/Neuron.h"
+#include "Neurons/NeuronConnection.h"
 #include <sstream>
 #include <fstream>
 

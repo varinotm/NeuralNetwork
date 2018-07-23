@@ -1,6 +1,6 @@
 #include "FinalLayer.h"
 
-#include "../Neurons/Neuron.h"
+#include "NeuralNetwork/Neurons/Neuron.h"
 
 FinalLayer::FinalLayer(int nbNeuron) :
 ILayer(nbNeuron)

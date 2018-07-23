@@ -1,10 +1,10 @@
 #include "LayerConnection.h"
 
-#include "../Neurons/NeuronConnection.h"
+#include "NeuralNetwork/Neurons/NeuronConnection.h"
 #include "ILayer.h"
-#include "../../Functions/INormalizerFunction.h"
+#include "Functions/INormalizerFunction.h"
 
-#include "../Neurons/Neuron.h"
+#include "NeuralNetwork/Neurons/Neuron.h"
 
 #include <math.h>
 

@@ -100,3 +100,5 @@ FILE(
 
 # Define target application executable and the list of source and header files
 add_executable(NeuralNetwork ${ALL_EXECUTABLE_FILES_ADDED})
+
+target_include_directories(NeuralNetwork PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
