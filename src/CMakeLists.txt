@@ -89,16 +89,9 @@ set (C_MAKE_C_FLAGS "-Wall -g")
 
 AUTO_ADD_SOURCE_FILE("${CMAKE_CURRENT_SOURCE_DIR}" ALL_EXECUTABLE_FILES_ADDED)
 
-# copy files from resources to build
-FILE(
-   COPY
-      ${CMAKE_CURRENT_SOURCE_DIR}/resources/
-   DESTINATION
-      ${CMAKE_BINARY_OUTPUT_DIRECTORY}/
+# Create the static library   
+ADD_LIBRARY(${PROJECT_NAME}_staticLib STATIC 
+            ${ALL_EXECUTABLE_FILES_ADDED}
 )
-
-
-# Define target application executable and the list of source and header files
-add_executable(NeuralNetwork ${ALL_EXECUTABLE_FILES_ADDED})
-
-target_include_directories(NeuralNetwork PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+            
+target_include_directories(${PROJECT_NAME}_staticLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

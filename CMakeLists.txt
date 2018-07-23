@@ -8,10 +8,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Minimum required cmake version
 cmake_minimum_required(VERSION 3.2)
 
+set(PROJECT_NAME "NeuralNetworkProject")
+
 # Defining the project name
-project(NeuralNetworkProject)
+project(${PROJECT_NAME})
 
 # Add subdirectory to the project : The CMakeLists.txt file in that subdirectory
 # will be used to set up the project
  
+add_subdirectory(exe)
 add_subdirectory(src)

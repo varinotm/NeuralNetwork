@@ -50,8 +50,8 @@ int main()
     trainingData.push_back(std::make_pair(array2, array2));
     trainingData.push_back(std::make_pair(array3, array2));
     trainingData.push_back(std::make_pair(array4, array2));*/
-    MnistReader::ReadMnistInputOutput("train-images.idx3-ubyte", 
-                                      "train-labels.idx1-ubyte", 
+    MnistReader::ReadMnistInputOutput("resources/train-images.idx3-ubyte", 
+                                      "resources/train-labels.idx1-ubyte", 
                                       trainingData);
 
     // Set the training data and train the neural network
