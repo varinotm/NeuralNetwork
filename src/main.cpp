@@ -7,7 +7,6 @@
     
 #include <ctime>
 
-
 //returns the exit code of the program
 int main()
 {
@@ -78,5 +77,5 @@ int main()
     delete neuralNetwork;
 
     std::cin.ignore();
-
+    return 0;
 }
