@@ -15,7 +15,7 @@ namespace MnistReader
         return((int)ch1 << 24) + ((int)ch2 << 16) + ((int)ch3 << 8) + ch4;
     }
 
-    void ReadMnistInputOutput(std::string inputFilename,
+    bool ReadMnistInputOutput(std::string inputFilename,
                               std::string outputFilename,
                               std::vector<std::pair<double*, double*>> &trainingData)
     {
@@ -73,7 +73,9 @@ namespace MnistReader
                 // We then create the output data of the label
                 trainingData.push_back(std::make_pair(inputData, outputData));
             }
+            return true;
         }
+        return false;
     }
 
 }

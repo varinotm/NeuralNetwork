@@ -50,29 +50,30 @@ int main()
     trainingData.push_back(std::make_pair(array2, array2));
     trainingData.push_back(std::make_pair(array3, array2));
     trainingData.push_back(std::make_pair(array4, array2));*/
-    MnistReader::ReadMnistInputOutput("resources/train-images.idx3-ubyte", 
-                                      "resources/train-labels.idx1-ubyte", 
-                                      trainingData);
+    if (MnistReader::ReadMnistInputOutput("resources/train-images.idx3-ubyte",
+                                          "resources/train-labels.idx1-ubyte",
+                                          trainingData))
+    {
+        // Set the training data and train the neural network
+        trainer = new Trainer();
+        trainer->SetTrainingData(trainingData);
+        trainer->SetNeuralNetwork(neuralNetwork);
+        trainer->SetBatchSize(1);
+        trainer->SetNumberOfIterations(100000);
+        trainer->Train(0.1);
 
-    // Set the training data and train the neural network
-    trainer = new Trainer();
-    trainer->SetTrainingData(trainingData);
-    trainer->SetNeuralNetwork(neuralNetwork);
-    trainer->SetBatchSize(1);
-    trainer->SetNumberOfIterations(100000);
-    trainer->Train(0.1);
+        // Save the neural network in a file after training
+        neuralNetwork->Save("myFirstNeuralNetwork.txt");
 
-    // Save the neural network in a file after training
-    neuralNetwork->Save("myFirstNeuralNetwork.txt");
+        // Load the saved neural network
+        neuralNetwork->Load("myFirstNeuralNetwork.txt");
 
-    // Load the saved neural network
-    neuralNetwork->Load("myFirstNeuralNetwork.txt");
+        /// \todo Set the neural network initial layer for testing purpose after training
+        //neuralNetwork->SetInputLayer();
 
-    /// \todo Set the neural network initial layer for testing purpose after training
-    //neuralNetwork->SetInputLayer();
-
-    // Compute the output result of the current neural network given an initial starting layer
-    neuralNetwork->ComputeResult();
+        // Compute the output result of the current neural network given an initial starting layer
+        neuralNetwork->ComputeResult();
+    }  
 
     delete neuralNetwork;
 
