@@ -65,8 +65,10 @@ int main()
         trainer->SetTestingData(testingData);
         trainer->SetNeuralNetwork(neuralNetwork);
         trainer->SetBatchSize(1);
-        trainer->SetNumberOfIterations(100000);
+        trainer->SetNumberOfIterations(10000);
         trainer->Train(0.1);
+        std::cout << trainer->Test() << std::endl;
+
 
         // Save the neural network in a file after training
         neuralNetwork->Save("myFirstNeuralNetwork.txt");
