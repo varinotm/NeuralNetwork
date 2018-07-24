@@ -77,3 +77,22 @@ void Trainer::Train(double learningRate)
         }
     }
 }
+
+double Trainer::Test()
+{
+    double successfulTests = 0;
+    for (size_t i = 0; i < mTestingData.size(); i++)
+    {
+        mNeuralNetwork->ResetValueAndDelta();
+
+        mNeuralNetwork->SetInputLayer(mTrainingData[i].first);
+        mNeuralNetwork->ComputeResult();
+        auto result = mNeuralNetwork->GetResult();
+        if (mTrainingData[i].second[std::distance(result.begin(), std::max_element(result.begin(), result.end()))] == 1)
+        {
+            successfulTests++;
+        }
+    }
+    successfulTests /= mTestingData.size();
+    return successfulTests;
+}

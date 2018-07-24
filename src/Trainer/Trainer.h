@@ -41,8 +41,15 @@ public:
     /// Start training
     /// Call when the trainer parameters has been set
     /// learningRate the learning rate of the neural network [default = 0.5]
-    /// \warn make sure the testing data and training data has been set before calling this function
+    /// \warn make sure the training data has been set before calling this function
     void Train(double learningRate = 0.5);
+
+    /// Start testing
+    /// \todo for now, we only take the highest value of the computed result and compare it to the expected result, we may want to do something
+    /// to see if we were close to the actual result (if we have like 0.6 for the wrong value and 0.4 for the good value)
+    /// \return the percentage of testing data that has been succesfully guessed by the neural network (between 0 and 1)
+    /// \warn Call after the neural network has been set
+    double Test();
 
 private:
     /// The current neural network to train
