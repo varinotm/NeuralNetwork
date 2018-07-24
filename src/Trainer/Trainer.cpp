@@ -40,6 +40,11 @@ void Trainer::SetTrainingData(std::vector<std::pair<double*, double*>> trainingD
     mTrainingData = trainingData;
 }
 
+void Trainer::SetTestingData(std::vector<std::pair<double*, double*>> testingData)
+{
+    mTestingData = testingData;
+}
+
 void Trainer::SetBatchSize(int nbBatchSize)
 {
     mNbBatchSize = nbBatchSize;

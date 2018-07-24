@@ -23,6 +23,11 @@ public:
     /// of the neural network.
     void SetTrainingData(std::vector<std::pair<double*, double*>> trainingData);
 
+    /// Set the data from which the neural network will test what it learned
+    /// \warn the testing data should match the start layer(input) and end layer(output)
+    /// of the neural network.
+    void SetTestingData(std::vector<std::pair<double*, double*>> testingData);
+
     /// Set the batch size of each iteration of the training. This number must
     /// be below the total number of the training data
     /// \warn not working for now
@@ -36,6 +41,7 @@ public:
     /// Start training
     /// Call when the trainer parameters has been set
     /// learningRate the learning rate of the neural network [default = 0.5]
+    /// \warn make sure the testing data and training data has been set before calling this function
     void Train(double learningRate = 0.5);
 
 private:
@@ -44,6 +50,9 @@ private:
 
     /// The current training data
     std::vector<std::pair<double*, double*>> mTrainingData;
+
+    /// The current testing data
+    std::vector<std::pair<double*, double*>> mTestingData;
 
     /// the desired batch size to train [default = 1]
     int mNbBatchSize;
