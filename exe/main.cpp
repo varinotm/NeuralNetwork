@@ -29,6 +29,7 @@ int main()
 
     // Read mnist dataset
     std::vector<std::pair<double*, double*>> trainingData;
+    std::vector<std::pair<double*, double*>> testingData;
     /*double* array1 = new double[2];
     double* array2 = new double[2];
     double* array3 = new double[2];
@@ -52,11 +53,16 @@ int main()
     trainingData.push_back(std::make_pair(array4, array2));*/
     if (MnistReader::ReadMnistInputOutput("resources/train-images.idx3-ubyte",
                                           "resources/train-labels.idx1-ubyte",
-                                          trainingData))
+                                          trainingData)
+        &&
+        MnistReader::ReadMnistInputOutput("resources/t10k-images.idx3-ubyte",
+                                          "resources/t10k-labels.idx1-ubyte",
+                                          testingData))
     {
         // Set the training data and train the neural network
         trainer = new Trainer();
         trainer->SetTrainingData(trainingData);
+        trainer->SetTestingData(testingData);
         trainer->SetNeuralNetwork(neuralNetwork);
         trainer->SetBatchSize(1);
         trainer->SetNumberOfIterations(100000);
