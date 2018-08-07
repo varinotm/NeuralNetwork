@@ -27,8 +27,8 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& rhs)
    if (&rhs == this)
       return *this;
 
-   unsigned nbRows = rhs.GetNbRows();
-   unsigned nbCols = rhs.GetNbCols();
+   unsigned int nbRows = rhs.GetNbRows();
+   unsigned int nbCols = rhs.GetNbCols();
 
    mat.resize(nbRows);
    for (unsigned i = 0; i<mat.size(); i++)
@@ -36,9 +36,9 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& rhs)
       mat[i].resize(nbCols, 0.0);
    }
 
-   for (unsigned i = 0; i<nbRows; i++)
+   for (unsigned int i = 0; i<nbRows; i++)
    {
-      for (unsigned j = 0; j<nbCols; j++)
+      for (unsigned int j = 0; j<nbCols; j++)
       {
          mat[i][j] = rhs(i, j);
       }
@@ -55,9 +55,9 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T>& rhs)
 {
    Matrix result(mNbRows, mNbCols, 0.0);
 
-   for (unsigned i = 0; i<mNbRows; i++)
+   for (unsigned int i = 0; i<mNbRows; i++)
    {
-      for (unsigned j = 0; j<mNbCols; j++)
+      for (unsigned int j = 0; j<mNbCols; j++)
       {
          result(i, j) = mMatrix[i][j] + rhs(i, j);
       }
@@ -73,9 +73,9 @@ Matrix<T>& Matrix<T>::operator+=(const Matrix<T>& rhs)
    unsigned nbRows = rhs.GetNbRows();
    unsigned nbCols = rhs.GetNbCols();
 
-   for (unsigned i = 0; i<nbRows; i++)
+   for (unsigned int i = 0; i<nbRows; i++)
    {
-      for (unsigned j = 0; j<nbCols; j++)
+      for (unsigned int j = 0; j<nbCols; j++)
       {
          mMatrix[i][j] += rhs(i, j);
       }
@@ -89,9 +89,9 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T>& rhs)
 {
    Matrix result(mNbRows, mNbCols, 0.0);
 
-   for (unsigned i = 0; i<mNbRows; i++)
+   for (unsigned int i = 0; i<mNbRows; i++)
    {
-      for (unsigned j = 0; j<mNbCols; j++)
+      for (unsigned int j = 0; j<mNbCols; j++)
       {
          result(i, j) = mMatrix[i][j] - rhs(i, j);
       }
@@ -107,9 +107,9 @@ Matrix<T>& Matrix<T>::operator-=(const Matrix<T>& rhs)
    unsigned nbRows = rhs.GetNbRows();
    unsigned nbCols = rhs.GetNbCols();
 
-   for (unsigned i = 0; i<nbRows; i++)
+   for (unsigned int i = 0; i<nbRows; i++)
    {
-      for (unsigned j = 0; j<nbCols; j++)
+      for (unsigned int j = 0; j<nbCols; j++)
       {
          mMatrix[i][j] -= rhs(i, j);
       }
@@ -124,11 +124,11 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& rhs)
    unsigned cols = rhs.get_cols();
    QSMatrix result(rows, cols, 0.0);
 
-   for (unsigned i = 0; i<rows; i++)
+   for (unsigned int i = 0; i<rows; i++)
    {
-      for (unsigned j = 0; j<cols; j++)
+      for (unsigned int j = 0; j<cols; j++)
       {
-         for (unsigned k = 0; k<rows; k++)
+         for (unsigned int k = 0; k<rows; k++)
          {
             result(i, j) += mMatrix[i][k] * rhs(k, j);
          }
@@ -153,9 +153,9 @@ Matrix<T> Matrix<T>::operator+(const T& rhs)
 {
    Matrix result(mNbRows, mNbCols);
 
-   for (unsigned i = 0; i<rows; i++)
+   for (unsigned int i = 0; i<rows; i++)
    {
-      for (unsigned j = 0; j<cols; j++)
+      for (unsigned int j = 0; j<cols; j++)
       {
          result(i, j) = mMatrix[i][j] + rhs;
       }
@@ -170,9 +170,9 @@ Matrix<T> Matrix<T>::operator-(const T& rhs)
 {
    Matrix result(mNbRows, mNbCols);
 
-   for (unsigned i = 0; i<rows; i++)
+   for (unsigned int i = 0; i<rows; i++)
    {
-      for (unsigned j = 0; j<cols; j++)
+      for (unsigned int j = 0; j<cols; j++)
       {
          result(i, j) = mMatrix[i][j] - rhs;
       }
@@ -187,9 +187,9 @@ Matrix<T> Matrix<T>::operator*(const T& rhs)
 {
    Matrix result(mNbRows, mNbCols);
 
-   for (unsigned i = 0; i<rows; i++)
+   for (unsigned int i = 0; i<rows; i++)
    {
-      for (unsigned j = 0; j<cols; j++)
+      for (unsigned int j = 0; j<cols; j++)
       {
          result(i, j) = mMatrix[i][j] * rhs;
       }
@@ -204,9 +204,9 @@ Matrix<T> Matrix<T>::operator/(const T& rhs)
 {
    Matrix result(mNbRows, mNbCols);
 
-   for (unsigned i = 0; i<rows; i++)
+   for (unsigned int i = 0; i<rows; i++)
    {
-      for (unsigned j = 0; j<cols; j++)
+      for (unsigned int j = 0; j<cols; j++)
       {
          result(i, j) = mMatrix[i][j] / rhs;
       }
@@ -221,9 +221,9 @@ std::vector<T> Matrix<T>::operator*(const std::vector<T>& rhs)
 {
    std::vector<T> result(rhs.size());
 
-   for (unsigned i = 0; i<rows; i++)
+   for (unsigned int i = 0; i<rows; i++)
    {
-      for (unsigned j = 0; j<cols; j++)
+      for (unsigned int j = 0; j<cols; j++)
       {
          result[i] = mMatrix[i][j] * rhs[j];
       }
@@ -238,7 +238,7 @@ std::vector<T> Matrix<T>::GetDiagonalVector()
 {
    std::vector<T> result(mNbRows, 0.0);
 
-   for (unsigned i = 0; i<mNbRows; i++)
+   for (unsigned int i = 0; i<mNbRows; i++)
    {
       result[i] = mMatrix[i][i];
    }
@@ -248,14 +248,14 @@ std::vector<T> Matrix<T>::GetDiagonalVector()
 
 // Access the individual elements                                                                                                                                             
 template<typename T>
-T& Matrix<T>::operator()(const unsigned& row, const unsigned& col)
+T& Matrix<T>::operator()(const unsigned int& row, const unsigned int& col)
 {
    return mMatrix[row][col];
 }
 
 // Access the individual elements (const)                                                                                                                                     
 template<typename T>
-const T& Matrix<T>::operator()(const unsigned& row, const unsigned& col) const
+const T& Matrix<T>::operator()(const unsigned int& row, const unsigned int& col) const
 {
    return mMatrix[row][col];
 }
