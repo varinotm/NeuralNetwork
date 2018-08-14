@@ -1,6 +1,6 @@
 #include "FinalLayer.h"
 
-#include "NeuralNetwork/Neurons/Neuron.h"
+#include "DataStructure\MatrixD.h"
 
 FinalLayer::FinalLayer(int nbNeuron) :
 ILayer(nbNeuron)

@@ -6,9 +6,8 @@
 
 #include "Layers/LayerConnection.h"
 #include "Functions/SigmoidNormalizerFunction.h"
+#include "DataStructure\MatrixD.h"
 
-#include "Neurons/Neuron.h"
-#include "Neurons/NeuronConnection.h"
 #include <sstream>
 #include <fstream>
 

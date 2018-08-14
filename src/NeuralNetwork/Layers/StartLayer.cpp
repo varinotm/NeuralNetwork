@@ -3,7 +3,7 @@
 #include "HiddenLayer.h"
 #include "FinalLayer.h"
 
-#include "NeuralNetwork\Neurons\Neuron.h"
+#include "DataStructure\MatrixD.h"
 
 StartLayer::StartLayer(int nbNeuron) :
 ILayer(nbNeuron)

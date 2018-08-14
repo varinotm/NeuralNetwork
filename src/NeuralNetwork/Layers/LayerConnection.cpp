@@ -1,10 +1,9 @@
 #include "LayerConnection.h"
 
-#include "NeuralNetwork/Neurons/NeuronConnection.h"
 #include "ILayer.h"
-#include "Functions/INormalizerFunction.h"
 
-#include "NeuralNetwork/Neurons/Neuron.h"
+#include "DataStructure\MatrixD.h"
+#include "Functions\INormalizerFunction.h"
 
 #include <math.h>
 
