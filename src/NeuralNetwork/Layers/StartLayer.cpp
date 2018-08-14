@@ -13,9 +13,9 @@ ILayer(nbNeuron)
 
 void StartLayer::SetInputNeurons(double* input)
 {
-    for (unsigned int i = 0; i < mNeuronList.size(); i++)
+    for (int i = 0; i < mNbNeurons; i++)
     {
-        mNeuronList[i]->SetValue(input[i]);
+        (*mNeuronValues)(i, 0) = input[i];
     }
 }
 

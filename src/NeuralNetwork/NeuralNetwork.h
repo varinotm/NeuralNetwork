@@ -46,11 +46,11 @@ public:
     void ComputeResult();
 
     /// Get the result of the output layer
-    std::vector<double> GetResult();
+    double* GetResult();
 
     /// Get the output size
     /// \return the number of nodes in the last layer
-    size_t GetOutputSize();
+    int GetOutputSize();
 
     /// Save the current neural network to the specified path
     /// \param[in] path the path to the file containing all bias and weight of the neural network.

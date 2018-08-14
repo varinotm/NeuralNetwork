@@ -1,12 +1,10 @@
 #pragma once
 
-#include <vector>
-
 class ILayer;
 class INormalizerFunction;
-class NeuronConnection;
+class MatrixD;
 
-/// cllas that connects 2 layers together
+/// class that connects 2 layers together
 class LayerConnection
 {
 public:
@@ -36,9 +34,9 @@ public:
     /// Initialize the value of the weight and bias
     void InitializeWeight();
 
-    /// Get the neuron connection matrix of a layer connection
-    /// \return the neuron connection matrix
-    std::vector<std::vector<NeuronConnection*>> GetNeuronConnectionMatrix() const;
+    /// Get the weight matrix
+    /// \return the weight matrix
+    MatrixD* GetWeightMatrix();
 
 private:
     /// The input layer
@@ -47,12 +45,9 @@ private:
     /// The output layer
     ILayer* mOutputLayer;
 
-    /// \todo struct with neuronconnection and bias????
-    /// \todo find alternative data structure (one where it is easy to iterate through rows or columns)
-    /// All the neuron connections from 2 layers.
-    /// Each neuron of an output layer is dependent on the value on all input neuron
-    std::vector<std::vector<NeuronConnection*>> mNeuronConnectionMatrix;
-
     /// The normalizer function, to transform an output node to a value between 0 and 1
     INormalizerFunction* mNormalizerFunction;
+
+    /// the weight matrix
+    MatrixD * mWeightMatrix;
 };

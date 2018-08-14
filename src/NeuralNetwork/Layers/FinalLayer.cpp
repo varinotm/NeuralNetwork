@@ -8,24 +8,16 @@ ILayer(nbNeuron)
 
 }
 
-std::vector<double> FinalLayer::GetResult()
-{
-    std::vector<double> result;
-    for (unsigned int i = 0; i < mNeuronList.size(); i++)
-    {
-        result.push_back(mNeuronList[i]->GetValue());
-    }
-
-    return result;
-}
 
 void FinalLayer::SetDelta(double* expectedOutput)
 {
-    for (unsigned int i = 0; i < mNeuronList.size(); i++)
+    for (int i = 0; i < mNbNeurons; i++)
     {
-        auto neuron = mNeuronList[i];
-
+        double neuronValue = (*mNeuronValues)(i, 0);
         // Error factor : expectedvalue - currentValue
-        neuron->ComputeDelta(expectedOutput[i] - neuron->GetValue());
+        double errorFactor = expectedOutput[i] - neuronValue;
+
+        // new delta : mDelta = mValue * (1 - mValue) * errorFactor;
+        (*mNeuronDelta)(i, 0) = neuronValue * (1 - neuronValue) * errorFactor;
     }
 }

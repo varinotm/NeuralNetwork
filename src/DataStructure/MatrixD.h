@@ -13,9 +13,19 @@ public:
     /// this will not deallocate the content of the matrix, it has to be deallocaed explicitely
     ~MatrixD(); 
 
+    /// Reset all values to 0.0
+    void Reset();
+
+    /// add the matrix to the existing matrix
+    /// no new pointers will be created, the pointed values will change accordingly
+    void Add(MatrixD* matrix);
+
     /// Multiply two matrix and the result will be stored in the matrix.
     /// no new pointers will be created, the pointed values will change accordingly
-    void Multiply(const MatrixD& lhs, const MatrixD& rhs);
+    void Multiply(MatrixD* lhs, MatrixD* rhs);
+
+    /// Return the matrix
+    double*& GetMatrix();
 
     // Access the individual elements                                                                                                                                                                                               
     double& operator()(const int& row, const int& col);

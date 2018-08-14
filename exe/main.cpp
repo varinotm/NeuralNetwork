@@ -50,7 +50,11 @@ int main()
     trainingData.push_back(std::make_pair(array1, array3));
     trainingData.push_back(std::make_pair(array2, array2));
     trainingData.push_back(std::make_pair(array3, array2));
-    trainingData.push_back(std::make_pair(array4, array2));*/
+    trainingData.push_back(std::make_pair(array4, array2));
+    testingData.push_back(std::make_pair(array1, array3));
+    testingData.push_back(std::make_pair(array2, array2));
+    testingData.push_back(std::make_pair(array3, array2));
+    testingData.push_back(std::make_pair(array4, array2));*/
     if (MnistReader::ReadMnistInputOutput("resources/train-images.idx3-ubyte",
                                           "resources/train-labels.idx1-ubyte",
                                           trainingData)
@@ -75,9 +79,6 @@ int main()
 
         // Load the saved neural network
         neuralNetwork->Load("myFirstNeuralNetwork.txt");
-
-        /// \todo Set the neural network initial layer for testing purpose after training
-        //neuralNetwork->SetInputLayer();
 
         // Compute the output result of the current neural network given an initial starting layer
         neuralNetwork->ComputeResult();

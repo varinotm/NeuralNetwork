@@ -1,49 +1,53 @@
 #include "ILayer.h"
-#include "NeuralNetwork/Neurons/Neuron.h"
+#include <DataStructure\MatrixD.h>
 
-ILayer::ILayer(int nbNeuron)
+ILayer::ILayer(int nbNeurons)
 {
-    for (int i = 0; i < nbNeuron; i++)
-    {
-        mNeuronList.push_back(new Neuron());
-    }
+    mNbNeurons = nbNeurons;
+    mNeuronValues = new MatrixD(nbNeurons, 1);
+    mNeuronBias = new MatrixD(nbNeurons, 1);
+    mNeuronDelta = new MatrixD(nbNeurons, 1);
+
 }
 
 ILayer::~ILayer()
 {
-    for (auto neuron : mNeuronList)
-    {
-        delete neuron;
-        neuron = nullptr;
-    }
-    mNeuronList.clear();
-}
-
-std::vector<Neuron*>& ILayer::GetNeuronList()
-{
-    return mNeuronList;
+    delete mNeuronValues;
+    delete mNeuronBias;
+    delete mNeuronDelta;
 }
 
 void ILayer::InitializeBias()
 {
-    for (auto neuron : mNeuronList)
-    {
-        neuron->SetBias(0);
-    }
+    mNeuronBias->Reset();
 }
 
 void ILayer::ResetValue()
 {
-    for (auto neuron : mNeuronList)
-    {
-        neuron->SetValue(0);
-    }
+    mNeuronValues->Reset();
 }
 
 void ILayer::ResetDelta()
 {
-    for (auto neuron : mNeuronList)
-    {
-        neuron->SetDelta(0);
-    }
+    mNeuronDelta->Reset();
+}
+
+int ILayer::GetNbNeurons() const
+{
+    return mNbNeurons;
+}
+
+MatrixD* ILayer::GetValues()
+{
+    return mNeuronValues;
+}
+
+MatrixD* ILayer::GetBias()
+{
+    return mNeuronBias;
+}
+
+MatrixD* ILayer::GetDelta()
+{
+    return mNeuronDelta;
 }

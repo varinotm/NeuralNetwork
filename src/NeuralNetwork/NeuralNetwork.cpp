@@ -108,14 +108,14 @@ void NeuralNetwork::ComputeResult()
     }
 }
 
-size_t NeuralNetwork::GetOutputSize()
+int NeuralNetwork::GetOutputSize()
 {
-    return mFinalLayer->GetNeuronList().size();
+    return mFinalLayer->GetNbNeurons();
 }
 
-std::vector<double> NeuralNetwork::GetResult()
+double* NeuralNetwork::GetResult()
 {
-    return mFinalLayer->GetResult();
+    return mFinalLayer->GetValues()->GetMatrix();
 }
 
 void NeuralNetwork::SetInputLayer(double* input)
@@ -176,45 +176,46 @@ void NeuralNetwork::Save(const std::string& path)
     myfile.open(path);
     
     /// First line will save the number of neurons at each layer
-    myfile << mStartLayer->GetNeuronList().size() << " ";
+    myfile << mStartLayer->GetNbNeurons() << " ";
 
     for (auto hiddenLayer : mHiddenLayerList)
     {
-        myfile << hiddenLayer->GetNeuronList().size() << " ";
+        myfile << hiddenLayer->GetNbNeurons() << " ";
     }
 
-    myfile << mFinalLayer->GetNeuronList().size() << "\n";
+    myfile << mFinalLayer->GetNbNeurons() << "\n";
 
     /// Next we save all bias, layer per layer, neuron per neuron
-    for (auto neuron : mStartLayer->GetNeuronList())
+    for (int i = 0; i< mStartLayer->GetNbNeurons(); i++)
     {
         // Should be all 0, since its the start layer
-        myfile << neuron->GetBias() << "\n";
+        myfile << (*mStartLayer->GetBias())(i, 0) << "\n";
     }
 
     for (auto hiddenLayer : mHiddenLayerList)
     {
-        for (auto neuron : hiddenLayer->GetNeuronList())
+        for (int i = 0; i< hiddenLayer->GetNbNeurons(); i++)
         {
-            myfile << neuron->GetBias() << "\n";
+            myfile << (*hiddenLayer->GetBias())(i, 0) << "\n";
         }
     }
     
-    for (auto neuron : mFinalLayer->GetNeuronList())
+    for (int i = 0; i< mFinalLayer->GetNbNeurons(); i++)
     {
-        myfile << neuron->GetBias() << "\n";
+        myfile << (*mFinalLayer->GetBias())(i, 0) << "\n";
     }
 
     // Finally, we save the value of each weight
     for (auto layerConnection : mLayerConnectionList)
     {
-        for (auto neuronConnectionList : layerConnection->GetNeuronConnectionMatrix())
+        auto weightMatrix = layerConnection->GetWeightMatrix();
+        for (int i = 0; i < weightMatrix->GetNbRows(); i++)
         {
-            for (auto neuronConnection : neuronConnectionList)
+            for (int j = 0; j < weightMatrix->GetNbCols(); j++)
             {
-                myfile << neuronConnection->GetWeight() << "\n";
+                myfile << (*weightMatrix)(i, j) << "\n";
             }
-        }        
+        }     
     }
 
     myfile.close();
@@ -249,36 +250,37 @@ void NeuralNetwork::Load(const std::string& path)
         Initialize(nbNeurons);
 
         /// Set the bias of each neuron
-        for (auto neuron : mStartLayer->GetNeuronList())
+        for (int i = 0; i < mStartLayer->GetNbNeurons(); i++)
         {
             myfile >> value;
-            neuron->SetBias(value);
+            (*mStartLayer->GetBias())(i, 0) = value;
         }
 
         for (auto hiddenLayer : mHiddenLayerList)
         {
-            for (auto neuron : hiddenLayer->GetNeuronList())
+            for (int i = 0; i < hiddenLayer->GetNbNeurons(); i++)
             {
                 myfile >> value;
-                neuron->SetBias(value);
+                (*hiddenLayer->GetBias())(i, 0) = value;
             }
         }
 
-        for (auto neuron : mFinalLayer->GetNeuronList())
+        for (int i = 0; i < mFinalLayer->GetNbNeurons(); i++)
         {
             myfile >> value;
-            neuron->SetBias(value);
+            (*mFinalLayer->GetBias())(i, 0) = value;
         }
 
         // Set the weight of each connection
         for (auto layerConnection : mLayerConnectionList)
         {
-            for (auto neuronConnectionList : layerConnection->GetNeuronConnectionMatrix())
+            auto weightMatrix = layerConnection->GetWeightMatrix();
+            for (int i = 0; i < weightMatrix->GetNbRows(); i++)
             {
-                for (auto neuronConnection : neuronConnectionList)
+                for (int j = 0; j < weightMatrix->GetNbCols(); j++)
                 {
                     myfile >> value;
-                    neuronConnection->SetWeight(value);
+                    (*weightMatrix)(i, j) = value;
                 }
             }
         }

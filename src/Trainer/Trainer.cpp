@@ -60,8 +60,7 @@ void Trainer::Train(double learningRate)
     for (int i = 0; i < mNbIterations; i++)
     {
         // Take random training sets for the current iteration
-        random_unique(mTrainingData.begin(), mTrainingData.end(), mNbBatchSize);
-
+        random_unique(mTrainingData.begin(), mTrainingData.end(), mNbBatchSize);        
         // We iterate through these chosen data and learn from this set
         for (int j = 0; j < mNbBatchSize; j++)
         {
@@ -88,7 +87,15 @@ double Trainer::Test()
         mNeuralNetwork->SetInputLayer(mTrainingData[i].first);
         mNeuralNetwork->ComputeResult();
         auto result = mNeuralNetwork->GetResult();
-        if (mTrainingData[i].second[std::distance(result.begin(), std::max_element(result.begin(), result.end()))] == 1)
+        int maxIndex = 0;
+        for (int j = 0; j < mNeuralNetwork->GetOutputSize(); j++)
+        {
+            if (result[j] > result[maxIndex])
+            {
+                maxIndex = j;
+            }
+        }
+        if (mTrainingData[i].second[maxIndex] == 1)
         {
             successfulTests++;
         }

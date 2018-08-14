@@ -14,24 +14,41 @@ MatrixD::~MatrixD()
     delete[] mMatrix;
 }
 
-void MatrixD::Multiply(const MatrixD& lhs, const MatrixD& rhs)
+void MatrixD::Reset()
 {
-
     for (int i = 0; i < mNbRows; i++)
     {
         for (int j = 0; j < mNbCols; j++)
         {
-            mMatrix[i*mNbRows + j] = 0.0;
+            mMatrix[i*mNbCols + j] = 0.0;
         }
     }
-#pragma omp parallel for
-    for (int i = 0; i < lhs.mNbRows; i++)
+}
+
+void MatrixD::Add(MatrixD* matrix)
+{
+    for (int i = 0; i < mNbRows; i++)
     {
-        for (int j = 0; j < rhs.mNbCols; j++)
+        for (int j = 0; j < mNbCols; j++)
         {
-            for (int k = 0; k < lhs.mNbCols; k++)
+            mMatrix[i*mNbCols + j] += matrix->mMatrix[i*mNbCols + j];
+        }
+    }
+}
+
+void MatrixD::Multiply(MatrixD* lhs, MatrixD* rhs)
+{
+    // reset all values to 0.0
+    Reset();
+    // Use parallelism for matrix multiplication
+#pragma omp parallel for
+    for (int i = 0; i < lhs->mNbRows; i++)
+    {
+        for (int j = 0; j < rhs->mNbCols; j++)
+        {
+            for (int k = 0; k < lhs->mNbCols; k++)
             {
-                mMatrix[i*mNbRows + j] += lhs.mMatrix[i*lhs.mNbRows + k] * rhs.mMatrix[k *lhs.mNbRows + j];
+                mMatrix[i*mNbCols + j] += lhs->mMatrix[i*lhs->mNbCols + k] * rhs->mMatrix[k *rhs->mNbCols + j];
             }
         }
     }
@@ -40,12 +57,12 @@ void MatrixD::Multiply(const MatrixD& lhs, const MatrixD& rhs)
 // Access the individual elements                                                                                                                                             
 double& MatrixD::operator()(const int& row, const int& col)
 {
-    return mMatrix[row * mNbRows + col];
+    return mMatrix[row * mNbCols + col];
 }
 
 const double& MatrixD::operator()(const int& row, const int& col) const
 {
-    return mMatrix[row * mNbRows + col];
+    return mMatrix[row * mNbCols + col];
 }
 
 int MatrixD::GetNbRows() const
@@ -56,4 +73,9 @@ int MatrixD::GetNbRows() const
 int MatrixD::GetNbCols() const
 {
     return mNbCols;
+}
+
+double*& MatrixD::GetMatrix()
+{
+    return mMatrix;
 }

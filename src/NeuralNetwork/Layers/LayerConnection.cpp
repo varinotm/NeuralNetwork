@@ -26,109 +26,79 @@ LayerConnection::LayerConnection(ILayer* inputLayer,
     mInputLayer = inputLayer;
     mOutputLayer = outputLayer;
 
-    for (auto outputNeuron : mOutputLayer->GetNeuronList())
-    {
-        std::vector<NeuronConnection*> neuronConnectionList;
-        for (auto inputNeuron : mInputLayer->GetNeuronList())
-        {
-            neuronConnectionList.push_back(new NeuronConnection(inputNeuron, outputNeuron));
-        }
-        mNeuronConnectionMatrix.push_back(neuronConnectionList);
-    }
+    mWeightMatrix = new MatrixD(mOutputLayer->GetNbNeurons(), mInputLayer->GetNbNeurons());
 }
 
 LayerConnection::~LayerConnection()
 {
-    for (auto& neuronConnectionList : mNeuronConnectionMatrix)
-    {
-        for (auto neuronConnection : neuronConnectionList)
-        {
-            delete neuronConnection;
-            neuronConnection = nullptr;
-        }
-        neuronConnectionList.clear();
-    }
-    mNeuronConnectionMatrix.clear();
+    delete mWeightMatrix;
 }
 
 void LayerConnection::InitializeWeight()
 {
-    // For every output node
-    for (auto neuronConnectionList : mNeuronConnectionMatrix)
+    auto nbOutputNeurons = mOutputLayer->GetNbNeurons();
+    auto nbInputNeurons = mInputLayer->GetNbNeurons();
+    for (int i = 0; i < nbOutputNeurons; i++)
     {
-        // For every connection of an output node
-        for (auto neuronConnection : neuronConnectionList)
+        for (int j = 0; j < nbInputNeurons; j++)
         {
-            auto nbInputNeuron = neuronConnectionList.size();
-            neuronConnection->SetWeight(fRand(-1/sqrt(nbInputNeuron),
-                                               1/sqrt(nbInputNeuron)));
+            (*mWeightMatrix)(i, j) = fRand(-1.0 / sqrt(nbInputNeurons), 1.0 / sqrt(nbInputNeurons));
         }
     }
 }
 
 void LayerConnection::ComputeOutputLayer()
 {
-    // For every output node
-    for (auto& neuronConnectionList : mNeuronConnectionMatrix)
-    {
-        // For every connection of an output node
-        for (auto neuronConnection : neuronConnectionList)
-        {
-            neuronConnection->ComputeOutputNeuron();
-        }
-    }
+    mOutputLayer->GetValues()->Multiply(mWeightMatrix, mInputLayer->GetValues());
 
-    // We add the bias to each output node
-    for (auto neuron : mOutputLayer->GetNeuronList())
+    mOutputLayer->GetValues()->Add(mOutputLayer->GetBias());
+    for (int i = 0; i < mOutputLayer->GetNbNeurons(); i++)
     {
-        neuron->SetValue(neuron->GetValue() + neuron->GetBias());
+        mOutputLayer->GetValues()->GetMatrix()[i] = mNormalizerFunction->NormalizeValue(mOutputLayer->GetValues()->GetMatrix()[i]);
     }
-
-    // Apply normalizer function so that the output node value is a value between 0 and 1
-    for (auto neuron : mOutputLayer->GetNeuronList())
-    {
-        neuron->SetValue(mNormalizerFunction->NormalizeValue(neuron->GetValue()));
-    }
+    
 }
 
 void LayerConnection::ComputeInputLayerDelta()
 {
     // for every input node
-    for (unsigned int i = 0; i < mInputLayer->GetNeuronList().size(); i++)
+    for (int i = 0; i < mInputLayer->GetNbNeurons(); i++)
     {
         double errorFactor = 0;
 
         // For every output node
-        for (unsigned int j = 0; j < mOutputLayer->GetNeuronList().size(); j++)
+        for (int j = 0; j < mOutputLayer->GetNbNeurons(); j++)
         {
-            errorFactor += mNeuronConnectionMatrix[j][i]->GetSubErrorFactor();
+            // output node delta * weight
+            errorFactor += (*mOutputLayer->GetDelta())(j, 0) * (*mWeightMatrix)(j,i);
         }
-        mInputLayer->GetNeuronList()[i]->ComputeDelta(errorFactor);
+        (*mInputLayer->GetDelta())(i, 0) = (*mInputLayer->GetValues())(i, 0) * ( 1 - (*mInputLayer->GetValues())(i, 0)) * errorFactor;
     }
 }
 
 void LayerConnection::UpdateWeightAndBias(double learningRate)
 {
-    // Update the bias
-    for (auto outputNeuron : mOutputLayer->GetNeuronList())
+    // update the bias
+    for (int i = 0; i < mOutputLayer->GetNbNeurons(); i++)
     {
-        // New bias = old bias * (learning rate * delta)
-        outputNeuron->SetBias(outputNeuron->GetBias() + (learningRate * outputNeuron->GetDelta()));
+        // New bias = old bias + (learning rate * delta)
+        (*mOutputLayer->GetBias())(i, 0) += learningRate * (*mOutputLayer->GetDelta())(i, 0);
     }
-
+    
     // Update the weight
-    // For every output node
-    for (auto neuronConnectionList : mNeuronConnectionMatrix)
+    // new weight = old weight + (learningRate * inputNodeValue * outputNodeDelta)
+    auto nbOutputNeurons = mOutputLayer->GetNbNeurons();
+    auto mInputNeurons = mInputLayer->GetNbNeurons();
+    for (int i = 0; i < nbOutputNeurons; i++)
     {
-        // For every connection of an output node
-        for (auto neuronConnection : neuronConnectionList)
+        for (int j = 0; j < mInputNeurons; j++)
         {
-            neuronConnection->UpdateWeight(learningRate);
+            (*mWeightMatrix)(i, j) += learningRate * (*mInputLayer->GetValues())(j, 0) * (*mOutputLayer->GetDelta())(i, 0);
         }
     }
 }
 
-std::vector<std::vector<NeuronConnection*>> LayerConnection::GetNeuronConnectionMatrix() const
+MatrixD* LayerConnection::GetWeightMatrix()
 {
-    return mNeuronConnectionMatrix;
+    return mWeightMatrix;
 }
